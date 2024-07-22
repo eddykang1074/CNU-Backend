@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>각종 신규함수 정의/사용법</h1>
+    <script>
+
+        //클래식(올드)한 방식의 자바스크립트함수 정의 및 사용법 
+
+        //function 함수명(매개변수=파라메터){로직,return 반환값}
+        //함수(메소드)는 자바스크립트에서 재사용가능한 기능을 구현하는 기초적인 방법 
+        function fnPlus(a,b){
+            let c = a+b;
+            return c;
+        }
+
+        var result = fnPlus(1,2);
+        console.log("fnPlus(1,2)=",result);
+
+        
+        //명명함수 방식 정의 
+        var plus0 = function fnPlus(a,b){
+            let c =  a+b;
+            return c; 
+        }
+
+        var result0 = plus0(10,20);
+        console.log("plus0(10,20)=",result0);
+
+
+        //익명함수 방식 정의 
+        //함수명없이 함수기능정의하기 
+        var plus1 = function(a,b){
+            return a+b;
+        }
+
+        var result1 = plus1(100,200);
+        console.log("plus1(100,200)=",result1);
+
+
+        //화살표 함수 방식 정의 
+        var plus2 = (a,b)=>{return a+b};
+        var plus3 = (a,b)=>(a+b);
+
+        var result2 = plus2(1000,2000);
+        var result3 = plus3(10000,20000);
+
+        console.log("plus2(1000,2000)=",result2);
+        console.log("plus3(10000,20000)=",result3);
+
+    </script>
+</body>
+</html>

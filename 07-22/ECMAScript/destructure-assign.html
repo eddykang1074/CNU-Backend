@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>비구조화 할당문법-객체/배열</h1>
+
+    <script>
+
+        //전통적인 방식의 배열의 값을 추출하고 할당하기-구조화된 방식의 배열값 추출/할당하기 
+        const books = ['React','Vue','Angular','Svelt','Jquery'];
+
+        //배열의 첫번쨰 요소값을 추출해서 변수에 할당하는 구조화된 옛날방식
+        //배열내 인덱스(순번)을 이용해 추출 배열 인덱스는 0부터 시작...
+        var book1 = books[0];
+        var book2 = books[1];
+        var book3 = books[2];
+
+        console.log('구조화된 방식의 배열값 추출 및 변수할당:',book1,book2,book3);
+
+
+        //비구조화 할당방식으로 배열의 값을 추출해서 변수에 할당하기 
+        let [book01,book02,book03] = books;
+        console.log('비구조화된 방식의 배열값 추출 및 변수할당:',book01,book02,book03);
+
+        //배열내 첫번쨰값을 첫번쨰변수에 할당하고 나머지 요소들은 배열형태로 extraTech에 할당한다.
+        let [book001,...extraTech] = books;
+        console.log('비구조화된 방식의 배열값 추출 및 변수할당2:',book001,extraTech);
+
+
+        let [tech1,tech2,tech3,tech4,tech5,tech6='unkown'] = ['React','Vue','Angular','Svelt','Jquery'];
+        console.log('비구조화된 방식의 배열값 추출 및 변수할당3:',tech1,tech2,tech3,tech4,tech5,tech6);
+
+
+
+        //객체의 구조화된 방식의 변수값 할당하기=old한 방식
+        const techTrend ={
+            front:'React-Next.js',
+            backend:'Node Nest.js',
+            server:'Linux-Ubuntu',
+            rdbms:'PostgreSQL',
+            nosql:'MongoDB',
+            infra:'Cloud-AWS',
+            getAuthor:function(){
+                return '강창훈';
+            }
+        }
+
+        let frontTech = techTrend.front;
+        let backendTech = techTrend.backend;
+        let serverTech = techTrend.server;
+        console.log(frontTech,backendTech,serverTech);
+
+
+        //객체의 비구조화 할당방식 사용하기 0
+        const {front,backend,server,getAuthor} = techTrend;
+        console.log(front,backend,server,getAuthor());
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>자바스크립트 객체 사용하기</h1>
+
+    <script>
+
+        //예시1) 기본적인 객체구조정의하고 사용하기
+
+        let noteBook = {
+            productId:"1",
+            productName:"LG그램17",
+            price:1000,
+            brand:"LG전자"
+        };
+
+        console.log("노트북정보:",noteBook);
+
+        noteBook.price = 3000;
+
+        console.log("노트북정보:",noteBook);
+
+
+        //자바스크립트 객체는 이미 한번 정의된 객체구조에 동적으로 속성 추가가능
+        //동적속성 추가방법 2가지 : 객체["신규속성명"] = 값 또는 객체.신규속성명 =값...
+        noteBook["stock"] =200;
+        console.log("노트북정보:",noteBook);
+
+        //동적속성 추가하기 2번쨰방법
+        //객체명.신규속성명 = 값;
+        noteBook.spec = { CPU:"i7",memory:"16G",SDD:"512G"};
+        console.log("노트북정보:",noteBook);
+
+        var SalesCenter = "Center";
+        for(let i=0;i<10;i++){
+            noteBook[`${SalesCenter}-${i.toString()}`]=20;
+        }
+
+        console.log("노트북정보:",noteBook);
+
+
+
+
+    </script>
+
+
++
+</body>
+</html>
