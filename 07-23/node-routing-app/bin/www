@@ -4,23 +4,14 @@
  * Module dependencies.
  */
 
-//www.js 모듈은 노드 백엔드 어플리케이션 웹서버를 통해 서비스하기 위한
-//서버 환경을 구성해주는 역할을 제공합니다. 
-//www.js는 실제 서비스 기능과 는 상관없이 노드 백엔드앱을 웹서버를 통해 서비스
-//할수 있는 환경만 제공해준다..
-
-//app.js 자체가 노드어플리케션을 의미함..
 var app = require('../app');
-var debug = require('debug')('my-node-app:server');
-
-//노드프레임워크에서 제공하는 웹서버 기능제공
+var debug = require('debug')('node-routing-app:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-//지정한 특정 포트를 통해 노드 앱을 서비스한다. 기본: 3000번포트  
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -28,8 +19,6 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-//http객체를 통해 웹서버 객체르 생성합니다.
-//웹서버 객체에 app(노드백엔드어플리케이션을 추가합니다.)
 var server = http.createServer(app);
 
 /**
@@ -37,8 +26,6 @@ var server = http.createServer(app);
  */
 
 server.listen(port);
-
-//server객체 error이벤트가 발생하면 onError이벤트 처리(핸들러)함수를 호출해서 에러처리해라..
 server.on('error', onError);
 server.on('listening', onListening);
 

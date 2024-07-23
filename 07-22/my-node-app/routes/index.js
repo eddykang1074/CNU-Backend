@@ -1,3 +1,6 @@
+//노드 기본 백엔드 앱의 기본 공통적인 기능 사용자 요청과 응답처리 전용 라우터파일 
+//해당 라우터 파일의 기본호출주소 : http://localhost:3000
+//모든 라우터 파일은 기본 호출주소 체계를 app.js에서 사전 정의한다.
 //express 객체 참조하기 
 var express = require('express');
 
@@ -11,10 +14,27 @@ var router = express.Router();
 호출주소: http://localhost:3000/
 */
 router.get('/', function(req, res, next) {
+
+  console.log("http://localhost:3000/라우팅메소드의 콜백함수가 호출되었습니다.");
+
+  console.log("사용자클라이언트 정보를 req(HttpRequest)객체에서 조회가능합니다.",req);
+
+  //테스트 쿼리스트리잉 아이디값을 추출합니다.
+  //http://localhost:3000/?id=testing&stock=2
+  const testId = req.query.id;
+  const stock = req.query.stock;
+
+  console.log("URL QueryString방식으로 전달된 데이터 출력:",testId,stock);
+
+  console.log("서버측에서 웹브라우저를 응답처리를 위한 res(HttpResponse)객체출력하기",res);
+
+  console.log("res.render()메소드를 통해 메인 뷰파일(index.ejs)파일이 바로 호출됩니다....");
+
   //서버에서 사용자 웹브라우저로 응답결과물을 반환합니다.
   //지정된 뷰파일내 웹페이지가 반환됩니다.
   //res.render('뷰파일경로',뷰파일에 전달하는 JSON데이터);
   res.render('index.ejs', { title: 'asdsada11111111' });
+  
 });
 
 

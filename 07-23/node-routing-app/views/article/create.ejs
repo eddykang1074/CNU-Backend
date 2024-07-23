@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신규 게시글 작성 웹페이지</title>
+    <style>
+        textarea{
+            width:500px;
+        }
+    </style>
+</head>
+<body>
+    <h1>신규 게시글 작성</h1>
+
+    <!-- http://localhost:3000/article/create 주소로 post방식으로 form태그내 사용자
+    입력/선택 폼데이터를 전송합니다.  
+    submit은 클라이언트에서 서버로 데이터를 전송한다는 의미이고 submit버튼이 클릭되면
+    서버로 데이터가 전송되기 바로전에 form태그의 onSubmit이벤트가 발생합니다.
+    -->
+    <form method="post" action="/article/create" onSubmit="return checkForm();">
+        제목:<input type="text" id="title" name="title"/><br/>
+        내용:<br/>
+        <textarea id="contents" name="contents" rows="20"></textarea><br/>
+        게시여부:
+        <select id="display" name="display">
+            <option value="9">선택</option>
+            <option value="1">게시함</option>
+            <option value="0">게시안함</option>
+        </select>
+        <br/>
+        <input type="submit" value="저장"/>
+    </form>
+
+
+    <script>
+        //클라이언트 폼 유효성 검사 함수 기능정의 
+        function checkForm(){
+
+            if(document.getElementById("title").value == ""){
+                alert("게시글 제목을 입력해주세요.");
+                document.getElementById("title").focus();
+                //진행상황을 멈춰라..
+                return false;
+            }
+
+            //서버로 폼데이터를 전송해라...
+            return true;
+        }
+
+    </script>
+
+
+</body>
+</html>

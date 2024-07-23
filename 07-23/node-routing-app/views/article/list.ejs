@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 목록페이지</title>
+    <style>
+        table{
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>게시글 목록 웹페이지</h1>
+
+    <a href="/article/create">신규 게시글 작성</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>게시글번호</th>
+                <th>제목</th>
+                <th>게시여부</th>
+                <th>조회수</th>
+                <th>등록자</th>
+                <th>등록일시</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><a href="/article/modify?id=1">웹퍼블리셔의 업무에 대해 궁금해요.</a></td>
+                <td>게시</td>
+                <td>100</td>
+                <td>에디</td>
+                <td>2024-07-23</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><a href="/article/modify?id=2">프론트엔드 기술중에 현재 가장 많이사용하는 기술은?</a></td>
+                <td>게시안함</td>
+                <td>200</td>
+                <td>가브리엘</td>
+                <td>2024-07-22</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><a href="/article/modify/3">자바를 배워야하나요?코틀린을 배워야하나요?</a></td>
+                <td>게시</td>
+                <td>300</td>
+                <td>강해림</td>
+                <td>2024-07-20</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</body>
+</html>
