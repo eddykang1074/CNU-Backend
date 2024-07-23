@@ -85,7 +85,7 @@ router.post('/create',function(req,res){
 //요청주소: http://localhost:3000/article/delete
 //클라이언트 요청방식: Post 방식
 //응답결과: 삭제후 목록페이지 이동처리 
-router.post('/delete',function(){
+router.post('/delete',function(req,res){
 
     //Step1: 삭제할 게시글 고유번호 추출하기 
     const articleIdx = req.body.article_id;
@@ -94,8 +94,6 @@ router.post('/delete',function(){
 
     //Step3: 삭제처리후 목록 페이지로 이동시키기 
     res.redirect('/article/list');
-
-    
 });
 
 
