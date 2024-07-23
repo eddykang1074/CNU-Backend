@@ -1,0 +1,80 @@
+
+실습 미션1) 
+Node Express 웹프로젝트 2개 만들고  실행해보기 
+** express 프로젝트명 --view=ejs  명령어를 통해 Final폴더 아래에 2개의 지정 프로젝틀 만들고 실행해보세요.
+
+1)관리자용 웹사이트 노드 프로젝트 만들기 
+-프로젝트명 : node-admin-app
+-뷰엔진유형: ejs
+-서비스포트번호: 5001
+http://localhost:5001
+
+express node-admin-app --view=ejs
+
+
+2)사용자 채팅 웹사이트 노드 프로젝트 만들기 
+-프로젝트명: node-chat-app
+-뷰엔진유형: ejs
+-서비스포트번호: 5000
+http://localhost:5000
+
+express node-chat-app --view=ejs
+
+
+
+
+
+
+실습 미션2) 
+관리자 웹사이트 프로젝트에 
+주요 라우터 파일 생성과 라우팅 메소드/뷰 구현하기 
+-프로젝트명 : node-admin-app
+
+1)공통기능 구현
+-라우터 파일: routes/index.js
+
+ㅁ로그인 화면요청/응답  라우팅메소드 :  
+ㄴ호출주소: http://localhost:5001/login
+ㄴ호출방식:Get
+ㄴ응답결과: login.ejs 뷰파일(로그인화면 웹페이지 /views/login.ejs)
+<form action="/login" method="post">
+아이디: <input type="text" name="userid" /><br/>
+암호:: <input type="password" name="password" /><br/>
+<input type="submit" value="로그인"/>
+</form>
+
+ㅁ로그인 정보 처리 라우팅 메소드
+ㄴ호출주소: http://localhost:5001/login
+ㄴ호출방식:Post
+ㄴ응답결과: 메인페이지 이동( http://localhost:5001/main)
+
+ㅁ메인페이지 요청/응답 라우팅 메소드
+ㄴ호출주소: http://localhost:5001/main
+ㄴ호출방식:Get
+ㄴ응답결과: main.ejs 뷰파일(메인 웹페이지 /views/main.ejs)
+
+
+
+
+실습 미션3)
+2)관리자 계정정보 관리 웹페이지 요청과 응답처리 구현
+
+-라우터 파일: routes/admin.js
+
+ㅁ관리자 계정목록 화면 요청/응답  라우팅메소드   
+ㄴ호출주소: http://localhost:5001/admin/list
+ㄴ호출방식:Get
+ㄴ응답결과: list.ejs 뷰파일(관리자 계정목록 웹페이지 /views/admin/list.ejs)
+
+ㅁ관리자 계정 등록 화면 요청/응답  라우팅메소드   
+ㄴ호출주소: http://localhost:5001/admin/create
+ㄴ호출방식:Get
+ㄴ응답결과: create.ejs 뷰파일(관리자 계정 신규등록 웹페이지 /views/admin/create.ejs)
+
+
+ㅁ관리자 계정 정보 등록 처리 요청/응답  라우팅메소드
+ㄴ호출주소: http://localhost:5001/admin/create
+ㄴ호출방식: Post
+ㄴ응답결과: 관리자 계정목록 페이지로 이동처리( http://localhost:5001/admin/list)
+
+

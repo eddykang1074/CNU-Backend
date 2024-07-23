@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자-로그인</title>
+</head>
+<body>
+    <h1>관리자 로그인 </h1>
+
+    <form action="/login" method="post">
+        아이디: <input type="text" name="userid" /><br/>
+        암호:: <input type="password" name="password" /><br/>
+        <input type="submit" value="로그인"/>
+    </form>
+
+    <script>
+        const loginResult ="<%=resultMsg%>";
+        if(loginResult.length > 0){
+            alert('로그인 실패!! 재로그인해주세요.');
+        }
+    </script>
+
+    
+</body>
+</html>
