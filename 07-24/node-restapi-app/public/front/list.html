@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>게시글 목록 관리</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!--추가 스타일-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--좌측 메뉴 영역-->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="block m-t-xs font-bold">Example user</span>
+                                <span class="text-muted text-xs block">menu <b class="caret"></b></span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    <li class="active">
+                        <a href="login.html"><i class="fa fa-th-large"></i> <span class="nav-label">로그인</span></a>
+                    </li>
+                    <li>
+                        <a href="entry.html"><i class="fa fa-th-large"></i> <span class="nav-label">회원가입</span> </a>
+                    </li>
+                    <li>
+                        <a href="/front/list.html"><i class="fa fa-th-large"></i> <span class="nav-label">게시글목록</span> </a>
+                    </li>
+                    <li>
+                        <a href="write.html"><i class="fa fa-th-large"></i> <span class="nav-label">게시글작성</span> </a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <!--우측 영역-->
+        <div id="page-wrapper" class="gray-bg">
+
+            <!--우측 상단 영역 -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
+                                class="fa fa-bars"></i> </a>
+                        <form role="search" class="navbar-form-custom" method="post" action="#">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search for something..." class="form-control"
+                                    name="top-search" id="top-search">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+
+            <!--우측 상단 헤더 영역 -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>게시글정보관리</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/Home/Index">Home</a>>
+                        </li>
+                        <li>
+                            <a>게시글정보관리</a>>
+                        </li>
+                        <li class="active">
+                            <strong>게시글목록조회</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+            <!--우측 콘텐츠 영역 -->
+            <div class="wrapper wrapper-content">
+
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="OrderNo">글제목</label>
+                                <input type="text" id="title" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="OrderName">아이피주소</label>
+                                <input type="text" id="ipaddress" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="MobileNo">게시여부</label>
+                                <select id="display" name="name" class="form-control">
+                                    <option value=9 selected>전체</option>
+                                    <option value=1>게시함</option>
+                                    <option value=2>게시안함</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" id="btnSearch" class="btn btn-primary">조회</button>
+                        <a href="/front/create.html" class="btn btn-info">신규 게시글 작성</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div class="table-responsive">
+
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="10%">게시글번호</th>
+                                                <th width="50%">제목</th>
+                                                <th width="5%">아이피주소</th>
+                                                <th width="5%">조회수</th>
+                                                <th width="10%">게시여부</th>
+                                                <th width="10%">등록자번호</th>
+                                                <th width="10%">등록일시</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="hoverTblBody">
+
+                                            <tr>
+                                                <td>1</td>
+                                                <td><a href="/front/modify?id=1">제목1입니다.</a></td>
+                                                <td>111.111.111.111</td>
+                                                <td>20</td>
+                                                <td>게시중</td>
+                                                <td>강창훈(1)</td>
+                                                <td>2024-07-24</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!--우측 하단 풋터 영역-->
+            <div class="footer">
+                <div class="pull-right">
+                    10GB of <strong>250GB</strong> Free.
+                </div>
+                <div>
+                    <strong>Copyright</strong> Example Company &copy; 2014-2018
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <!-- JQuery 라이브러리는 순수자바스크립트 코딩의 생산성을 향상시켜주는 개발 생산/효율성 지원 오픈소스 라이브러리는
+    프론트엔드 프레임워크(React(next.js),Vue.js,Angular.js)등이 나타나기전까지 전세계에서 가장 많이 사용한 프론트엔드 코딩 라이브러리
+    현재도 여러 분야에서 유효하게 사용됨(관리자사이트등..) -->
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+
+
+    <!--추가 스크립트-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <script>
+
+        //현재 html문서가 웹브라우저에 모두완전히 로딩이 완료되면
+        //지정한 콜백함수를 실행시켜라..ready('콜백함수')
+        $(document).ready(function(){
+            //JQuery의 AJAX를 이용해 백엔드 RESTAPI주소를 호출하여 데이터를 가져온다.
+            //get('백엔드RESTAPI호출주소',콜백함수(서버에서보내준데이터))
+            $.get('http://localhost:3000/api/articles/list',function(result){
+
+                //웹브라우저 개발자도구 콘솔탭에 로깅해본다.. 잘 넘어오는지..아닌지...
+                console.log("백엔드 RESTful API에서 제공된 데이터:",result);
+
+
+            });
+        });
+
+    </script>
+
+
+</body>
+
+</html>
