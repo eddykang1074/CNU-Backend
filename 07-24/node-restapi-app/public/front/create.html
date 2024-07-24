@@ -107,48 +107,51 @@
 
             <!--우측 콘텐츠 영역 -->
             <div class="wrapper wrapper-content">
-                <div class="ibox-content m-b-sm border-bottom">
-                    <!-- 글제목영역 -->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">글제목</label>
-                                <input type="text" id="title" class="form-control">
+
+                <form id="createForm">
+                    <div class="ibox-content m-b-sm border-bottom">
+                        <!-- 글제목영역 -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">글제목</label>
+                                    <input type="text" id="title" class="form-control">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- 글내용영역 -->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">글내용</label>
-                                <textarea class="form-control" id="contents" rows="10" cols="5"></textarea>
+                        <!-- 글내용영역 -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">글내용</label>
+                                    <textarea class="form-control" id="contents" rows="10" cols="5"></textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- 게시여부 영역하나만 표시 -->
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">게시여부</label>
-                                <select class="form-control" id="display">
-                                    <option value="9">선택</option>
-                                    <option value="1">게시</option>
-                                    <option value="0">게시안함</option>
-                                </select>
+                        <!-- 게시여부 영역하나만 표시 -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">게시여부</label>
+                                    <select class="form-control" id="display">
+                                        <option value="9">선택</option>
+                                        <option value="1">게시</option>
+                                        <option value="0">게시안함</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">저장</button>
+                            <a href="/front/list.html" class="btn btn-info">목록</a>
+                        </div>
+
                     </div>
+                </form>
 
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">저장</button>
-                        <a href="/front/list.html" class="btn btn-info">목록</a>
-                    </div>
-
-                </div>
             </div>
 
             <!--우측 하단 풋터 영역-->
@@ -180,7 +183,64 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+
     <script>
+
+        //웹페이지가 로딩완료되면 마우스포커스를 제목입력박스에 가져다 준다.(UX향상기능)
+        $("#title").focus();
+
+        //입력폼 유효성 검사 실시
+        // createForm form태그에 onSubmit이벤트가 발생하면 실행할 기능(유효성검사)를 정의한다.
+        $("#createForm").submit(function(e){
+
+            //더이상 서버로 데이터를 전송하느 submit이벤트을 취소한다. 
+            //프론트엔드 개발시에만 사용함..
+            //e.preventDefault();
+
+            //제목요소의 입력 유효성검사 체크하기
+            if($("#title").val() == ""){
+                alert("게시글 제목을 입력해주세요.");
+                $("#title").focus();
+                return false;
+            }
+
+            //게시여부요소의 선택 유효성검사 체크하기
+            if($("#display").val() == "9"){
+                alert("게시여부를 선택해주세요.");
+                $("#display").focus();
+                return false;
+            }
+
+
+            //Step1: 서버로 전송할 데이터 소스 준비하기(JSON데이터)
+            var article = {
+                "title":$("#title").val(),
+                "contents":$("#contents").val(),
+                "display":$("#display").val()
+            }
+
+            //Jquery AJAX Post방식으로 클라이언트에서 서버RESTAPI로 데이터를 전송하는메소드
+            //post('API호출주소',전달데이터).done(콜백함수(처리결과데이터){});
+            $.post('http://localhost:3000/api/articles/create',article).done(function(result){
+
+                console.log("신규 게시글 등록처리 결과값 확인하기 :",result);
+
+                //정상적으로 처리된경우 
+                if(result.code == 200){
+                    alert("등록완료");
+                    location.href ="/front/list.html";
+                }else{
+                    //서버 에러난경우
+                    alert(result.result);
+                }
+
+            });
+
+
+
+            
+            return false;
+        });
 
     </script>
 
