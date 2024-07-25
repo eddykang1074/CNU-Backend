@@ -114,6 +114,61 @@ router.post('/create',async(req,res)=>{
 });
 
 
+
+/*
+-기존 게시글을 수정한 사용자 폼에 대한 게시글 데이터 수정처리 요청과 응답처리 라우팅메소드 
+-호출주소: http://localhost:2000/article/modify
+-호출방식: Post
+-응답결과: 기존 게시글 정보를 수정처리하고 목록페이지로 이동시킨다.
+*/
+router.post('/modify',async(req,res)=>{
+
+    //Step1: 사용자 수정데이터를 추출하고 수정할 데이터 소스를 생성합니다.
+    //수정할 대상이 되는 게시글 고유번호 
+    const articleIdx = req.body.article_id; //hidden태그의 name속성값
+
+    //실제 수정할 데이터항목별 값 세팅하기
+    const article = {
+        title:req.body.title,
+        contents:req.body.contents,
+        display:req.body.display,
+        modify_id:1,
+        modify_date:Date.now()
+    };
+
+    //Step2: DB게시글 테이블에 특정게시글 번호를 기준으로 게시글 정보를 수정처리합니다.
+    //Update article Set title='수정한제목',contents='수정한내용',display='게시여부값',modify_id=1,modify_date='2024-07-25 18:08:12' WHERE article_id=1;
+
+    //수정이 완료되면 DB서버에서 수정처리건수가 반환된다.
+
+    //Step3: 게시글 목록페이지로 이동처리
+    res.redirect('/article/list');
+
+});
+
+
+
+
+/*
+-기존 게시글 데이터 삭제처리 요청과 응답처리 라우팅메소드 
+-호출주소: http://localhost:3000/article/delete?aid=1
+-호출방식: Get
+-응답결과: 해당 게시글 삭제처리하고 목록페이지로 이동시킴
+*/
+router.get('/delete',async(req,res)=>{
+    
+    //req.query.키명으로 쿼리스트링방식으로 전달된 데이터 추출 
+    const articleIdx = req.query.aid;
+
+    //STEP2: 데이터 삭제처리
+    
+    //Step3: 사용자 브라우저 게시글 목록 이동처리 
+    res.redirect('/article/list');
+});
+
+
+
+
 /*
 -기존 등록된 게시글 데이터를 조회해서 게시글 수정 웹페이지에 데이터를 포함한 웹페이지 요청과 응답처리 라우팅메소드 
 -호출주소: http://localhost:2000/article/modify/1
