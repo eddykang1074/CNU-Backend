@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INSPINIA | Main view</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!--추가 스타일-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--좌측 메뉴 영역-->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="block m-t-xs font-bold">Example user</span>
+                                <span class="text-muted text-xs block">menu <b class="caret"></b></span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    <li class="active">
+                        <a href="login.html"><i class="fa fa-th-large"></i> <span class="nav-label">로그인</span></a>
+                    </li>
+                    <li>
+                        <a href="entry.html"><i class="fa fa-th-large"></i> <span class="nav-label">회원가입</span> </a>
+                    </li>
+                    <li>
+                        <a href="/front/list.html"><i class="fa fa-th-large"></i> <span class="nav-label">게시글목록</span> </a>
+                    </li>
+                    <li>
+                        <a href="write.html"><i class="fa fa-th-large"></i> <span class="nav-label">게시글작성</span> </a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <!--우측 영역-->
+        <div id="page-wrapper" class="gray-bg">
+
+            <!--우측 상단 영역 -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
+                                class="fa fa-bars"></i> </a>
+                        <form role="search" class="navbar-form-custom" method="post" action="#">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search for something..." class="form-control"
+                                    name="top-search" id="top-search">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+
+            <!--우측 콘텐츠 헤더영역 -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>게시글정보관리</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/Home/Index">Home</a>>
+                        </li>
+                        <li>
+                            <a>게시글정보관리</a>>
+                        </li>
+                        <li class="active">
+                            <strong>해당 게시글 정보확인</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+            <!--우측 콘텐츠 영역 -->
+            <div class="wrapper wrapper-content">
+
+                <form id="modifyForm">
+                    <div class="ibox-content m-b-sm border-bottom">
+                        <!-- 글제목영역 -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">글제목</label>
+                                    <input type="text" id="title" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 글내용영역 -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">글내용</label>
+                                    <textarea class="form-control" id="contents" rows="10" cols="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 게시여부 영역하나만 표시 -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">게시여부</label>
+                                    <select class="form-control" id="display">
+                                        <option value="9">선택</option>
+                                        <option value="1">게시</option>
+                                        <option value="0">게시안함</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">수정</button>
+                            <button type="button" class="btn btn-danger">삭제</button>
+                            <a href="/front/list.html" class="btn btn-info">목록</a>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+            <!--우측 하단 풋터 영역-->
+            <div class="footer">
+                <div class="pull-right">
+                    10GB of <strong>250GB</strong> Free.
+                </div>
+                <div>
+                    <strong>Copyright</strong> Example Company &copy; 2014-2018
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+
+
+    <!--추가 스크립트-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <script>
+
+        //list.html에서 전달해주는 게시글 고유번호 추출하기
+        ///front/modify.html?id=1 호출되는 주소에서 id값을 클라이언트 환경에서 추출해보자.
+
+        //현재 URL에서(/front/modify.html?id=1) 쿼리스트링 키명으로 값을 추출하는 클라이언트 자바스크립트 함수 
+        //정규식 문법을 이용한 키값추출하기 
+        function getQueryString(keyName){
+            var results = new RegExp('[\?&]'+keyName+'=([^&#]*)').exec(window.location.href);
+            if(results != null){
+                return results[1] || 0;
+            }
+            return results;
+        }
+
+        //URL에서 id값 추출하여 게시글고유번호 추출
+        var articleIdx = getQueryString("id");
+        console.log("현재 게시글 고유번호:",articleIdx);
+
+        //현재 웹페이지가 웹브라우저에 모두 로딩(렌더링)이 완료되면 실행되는 ready(콜백함수);
+        $(document).ready(function(){
+
+            //백엔드 REST API에서 단일게시글 정보를 조회해온다.
+            //Jquery AJAX Get방식으로 특정 RESTAPI주소를 호출해서 데이터를 조회해온다.
+            //get('백엔드 api주소',호출결과콜백함수(호출결과값){});
+            $.get(`http://localhost:3000/api/articles/${articleIdx}`,function(result){
+
+                console.log("백엔드 API에서 제공해준 JSON데이터 확인:",result);
+
+                if(result.code == 200){
+                    //백엔드에서 제공해준 data를 기반으로 UI HTML태그요소에 값으로 바인딩한다.
+                    $("#title").val(result.data.title);
+                    $("#contents").val(result.data.contents);
+                    $("#display").val(result.data.display);
+
+                }else{
+                    alert("RESTful API 데이터 호출에 실패했습니다.\n 관리자에게 문의해주세요.")
+                }
+
+            });
+
+
+        });
+
+
+
+
+        //웹페이지가 로딩완료되면 마우스포커스를 제목입력박스에 가져다 준다.(UX향상기능)
+        $("#title").focus();
+
+        //입력폼 유효성 검사 실시
+        // modifyForm form태그에 onSubmit이벤트가 발생하면 실행할 기능(유효성검사)를 정의한다.
+        $("#modifyForm").submit(function(e){
+
+            //더이상 서버로 데이터를 전송하느 submit이벤트을 취소한다. 
+            //프론트엔드 개발시에만 사용함..
+            //e.preventDefault();
+
+            //제목요소의 입력 유효성검사 체크하기
+            if($("#title").val() == ""){
+                alert("게시글 제목을 입력해주세요.");
+                $("#title").focus();
+                return false;
+            }
+
+            //게시여부요소의 선택 유효성검사 체크하기
+            if($("#display").val() == "9"){
+                alert("게시여부를 선택해주세요.");
+                $("#display").focus();
+                return false;
+            }
+
+
+            //Step1: 서버로 전송할 수정 데이터 소스 준비하기(JSON데이터)
+            var article = {
+                "article_id":articleIdx,
+                "title":$("#title").val(),
+                "contents":$("#contents").val(),
+                "display":$("#display").val()
+            }
+
+            //Jquery AJAX Post방식으로 클라이언트에서 서버RESTAPI로 데이터를 전송하는메소드
+            //post('API호출주소',전달데이터).done(콜백함수(처리결과데이터){});
+            $.post('http://localhost:3000/api/articles/modify',article).done(function(result){
+
+                console.log("기존 게시글 수정처리 결과값 확인하기 :",result);
+
+                //정상적으로 처리된경우 
+                if(result.code == 200){
+                    alert("수정완료");
+                    location.href ="/front/list.html";
+                }else{
+                    //서버 에러난경우
+                    alert(result.result);
+                }
+
+            });
+            
+            return false;
+        });
+
+    </script>
+
+</body>
+
+</html>
