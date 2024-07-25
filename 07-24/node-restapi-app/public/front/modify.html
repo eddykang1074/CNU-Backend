@@ -146,7 +146,7 @@
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">수정</button>
-                            <button type="button" class="btn btn-danger">삭제</button>
+                            <button type="button" id="btnDelete" class="btn btn-danger">삭제</button>
                             <a href="/front/list.html" class="btn btn-info">목록</a>
                         </div>
 
@@ -284,6 +284,29 @@
             });
             
             return false;
+        });
+
+
+
+        //삭제버튼 클릭 이벤트 핸들러
+        $("#btnDelete").click(function(){
+
+            if(confirm('정말로 삭제하시겠습니까?')){
+
+                //Jquery AJAX로 백엔드 삭제 API를 호출합니다.
+                $.get(`http://localhost:3000/api/articles/delete?aid=${articleIdx}`,function(result){
+
+                    console.log("삭제 RESTful API 호출결과값 출력:",result);
+
+                    if(result.code == 200){
+                        alert("삭제완료!!");
+                        location.href ="/front/list.html";
+                    }else{
+                        alert("백엔드 API 호출에러발생 "+ result.result);
+                    }
+                });
+            }
+
         });
 
     </script>
