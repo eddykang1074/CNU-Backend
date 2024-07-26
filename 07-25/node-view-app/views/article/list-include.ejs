@@ -1,4 +1,35 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>게시글 목록 관리</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!--추가 스타일-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--좌측 메뉴 영역-->
+        <% include ../common/left-menu.ejs %>  
+
+        <!--우측 영역-->
+        <div id="page-wrapper" class="gray-bg">
+
+            <!--우측 상단 영역 -->
+            <% include ../common/header.ejs %>  
 
             <!--우측 상단 헤더 영역 -->
             <div class="row wrapper border-bottom white-bg page-heading">
@@ -104,3 +135,37 @@
 
 
             </div>
+
+            <!--우측 하단 풋터 영역-->
+            <% include ../common/footer.ejs %>  
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <!-- JQuery 라이브러리는 순수자바스크립트 코딩의 생산성을 향상시켜주는 개발 생산/효율성 지원 오픈소스 라이브러리는
+    프론트엔드 프레임워크(React(next.js),Vue.js,Angular.js)등이 나타나기전까지 전세계에서 가장 많이 사용한 프론트엔드 코딩 라이브러리
+    현재도 여러 분야에서 유효하게 사용됨(관리자사이트등..) -->
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+
+
+    <!--추가 스크립트-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <script>
+        //클라이언트 웹브라우저에서 작동하는 자바스크립트 코딩영역
+
+    </script>
+
+    </body>
+    </html>
