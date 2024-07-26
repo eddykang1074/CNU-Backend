@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/list', function(req, res, next) {
-    res.render('admin/list');
+    res.render('article/list');
 });
 
 router.get('/create', function(req, res, next) {
-    res.render('admin/create');
+    res.render('article/create');
 });
   
 router.post('/create', function(req, res, next) {
@@ -15,7 +15,7 @@ router.post('/create', function(req, res, next) {
     const pw = req.body.pw;
     const code = req.body.code;
 
-    res.redirect('/admin/list');
+    res.redirect('/article/list');
 });
 
 router.post('/modify', function(req, res, next) {
@@ -24,15 +24,15 @@ router.post('/modify', function(req, res, next) {
     const pw = req.body.pw;
     const code = req.body.code;
     
-    res.redirect('/admin/list');
+    res.redirect('/article/list');
 });
 
 router.get('/delete', function(req, res, next) {
-    res.redirect('/admin/list');
+    res.redirect('/article/list');
 });
 
 router.get('/modify/:id', function(req, res, next) {
-    res.render('admin/modify');
+    res.render('article/modify');
 });
 
 
