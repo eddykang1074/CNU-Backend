@@ -13,29 +13,54 @@
 - routes/
 
 - index.js : 로그인 요청과 응답처리 기능
-ㄴ 로그인 라우팅 메소드 구현
+ㄴ 로그인 라우팅 메소드 구현(Get/Post) http://localhost:5001/login
+ㄴ 메인 페이지 메소드 구현(Get) http://localhost:5001/main
 
 - admin.js : 관리자 계정 관리 웹페이지/데이터처리 요청과 응답 기능
-ㄴ 관리자 계정 조회목록 웹페이지 요청/응답 라우팅 메소드 (Get)
-ㄴ 신규 관리자 계정 등록 웹페이지 요청/응답 라우팅 메소드 (Get/Post)
-ㄴ 기존 관리자 계정 확인 웹페이지 요청/응답 라우팅 메소드 (단일정보조회-Get/수정-POST/삭제-GET)
+ㄴ 관리자 계정 조회목록 웹페이지 요청/응답 라우팅 메소드 (Get) http://localhost:5001/admin/list
+ㄴ 신규 관리자 계정 등록 웹페이지 요청/응답 라우팅 메소드 (Get/Post) 
+http://localhost:5001/admin/create : get
+http://localhost:5001/admin/create : post 
+
+ㄴ 기존 관리자 계정 확인 웹페이지 요청/응답 라우팅 메소드 (단일정보조회-Get/수정-POST/삭제-GET) 
+http://localhost:5001/admin/modify/1 : get 
+http://localhost:5001/admin/modify : post
+http://localhost:5001/admin/delete: get
+
 
 - member.js : 사용자 계정 관리 웹페이지/데이터처리 요청과 응답 기능
-ㄴ 회원 계정 조회목록 웹페이지 요청/응답 라우팅 메소드 (Get)
-ㄴ 기존 회원 계정 확인 웹페이지 요청/응답 라우팅 메소드 (단일정보조회-Get/수정-POST/삭제-GET)
+ㄴ 회원 계정 조회목록 웹페이지 요청/응답 라우팅 메소드 (Get) 
+http://localhost:5001/member/list :get
+
+ㄴ 기존 회원 계정 확인 웹페이지 요청/응답 라우팅 메소드 (단일정보조회-Get/수정-POST/삭제-GET) 
+http://localhost:5001/member/modify/1 : get
+http://localhost:5001/member/modify : post 
+http://localhost:5001/member/delete : get
 
 - channel.js : 채팅방 정보 관리 웹페이지/데이터처리 요청과 응답 기능 
-ㄴ 채널(채팅방) 조회목록 웹페이지 요청/응답 라우팅 메소드 (Get)
-ㄴ 신규 채널(채팅방) 등록 웹페이지 요청/응답 라우팅 메소드 (Get/Post)
-ㄴ 기존 채널(채팅방) 확인 웹페이지 요청/응답 라우팅 메소드 (단일정보조회-Get/수정-POST/삭제-GET)
+ㄴ 채널(채팅방) 조회목록 웹페이지 요청/응답 라우팅 메소드 (Get) http://localhost:5001/channel/list
+ㄴ 신규 채널(채팅방) 등록 웹페이지 요청/응답 라우팅 메소드 (Get/Post) 
+http://localhost:5001/channel/create : get 
+http://localhost:5001/channel/create: post
+
+ㄴ 기존 채널(채팅방) 확인 웹페이지 요청/응답 라우팅 메소드 (단일정보조회-Get/수정-POST/삭제-GET) 
+http://localhost:5001/channel/modify/1 : get
+http://localhost:5001/channel/modify : post 
+http://localhost:5001/channel/delete : get
 
 - article.js : 게시글 정보 관리 웹페이지/데이터처리 요청과 응답 기능
-ㄴ 게시글 조회목록 웹페이지 요청/응답 라우팅 메소드 (Get)
-ㄴ 신규 게시글정보 등록 웹페이지 요청/응답 라우팅 메소드 (Get/Post)
-ㄴ 기존 게시글정보 확인 웹페이지 요청/응답 라우팅 메소드 (단일정보조회-Get/수정-POST/삭제-GET)
+ㄴ 게시글 조회목록 웹페이지 요청/응답 라우팅 메소드 (Get) http://localhost:5001/article/list
+ㄴ 신규 게시글정보 등록 웹페이지 요청/응답 라우팅 메소드 (Get/Post) 
+http://localhost:5001/article/create : get 
+http://localhost:5001/article/create : post
+
+ㄴ 기존 게시글정보 확인 웹페이지 요청/응답 라우팅 메소드 (단일정보조회-Get/수정-POST/삭제-GET) 
+http://localhost:5001/article/modify/1 : get
+http://localhost:5001/article/modify : post
+http://localhost:5001/article/delete : get
 
 - message.js : 채팅 메시지 관리 웹페이지/데이터처리 요청과 응답 기능 : 조회목록 기능만 구현
-ㄴ메시지 조회 목록 웹페이지 요청/응답 라우팅 메소드 (Get)
+ㄴ메시지 조회 목록 웹페이지 요청/응답 라우팅 메소드 (Get) http://localhost:5001/message/list
 
 
 
@@ -63,6 +88,8 @@ router.get('/login',async(req,res)=>{
 
 -views/
 - login.ejs : 로그인 화면 view 파일 
+- main.ejs  : 로그인 후 보여질 메인 페이지 뷰 파일 
+
 
 - /admin/ 
 ㄴlist.ejs: 관리자 계정 조회/목록 view 파일 
