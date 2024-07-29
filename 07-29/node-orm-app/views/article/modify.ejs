@@ -1,0 +1,75 @@
+
+
+            <!--우측 콘텐츠 헤더영역 -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>게시글정보관리</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/Home/Index">Home</a>>
+                        </li>
+                        <li>
+                            <a>게시글정보관리</a>>
+                        </li>
+                        <li class="active">
+                            <strong>기존 게시글 확인 및 수정/삭제</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+            <!--우측 콘텐츠 영역 -->
+            <div class="wrapper wrapper-content">
+
+                <form id="modifyForm" action="/article/modify" method="post">
+                    <!-- html히든태그에 게시글고유번호를 저장하고 name속성을 지정해 post로 전달시 게시글 번호도 전달되게 처리함 -->
+                    <input type="hidden" name="article_id" value="<%=article.article_id%>"/>
+
+                    <div class="ibox-content m-b-sm border-bottom">
+                        <!-- 글제목영역 -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">글제목</label>
+                                    <input type="text" id="title" name="title" value="<%=article.title%>" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 글내용영역 -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">글내용</label>
+                                    <textarea class="form-control" id="contents" name="contents" rows="10" cols="5"><%=article.contents%></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 게시여부 영역하나만 표시 -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">게시여부</label>
+                                    <select class="form-control" id="display" name="display">
+                                        <option value="9" <% if(article.display == 9){ %>selected <% } %> >선택</option>
+                                        <option value="1" <% if(article.display == 1){ %>selected <% } %> >게시</option>
+                                        <option value="0" <% if(article.display == 0){ %>selected <% } %> >게시안함</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">수정</button>
+                            <button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+                            <a href="/article/list" class="btn btn-info">목록</a>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
