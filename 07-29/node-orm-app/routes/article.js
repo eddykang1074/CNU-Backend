@@ -68,14 +68,46 @@ router.post('/create',async(req,res)=>{
 //기존 단일 게시글 수정처리 요청과 응답처리 라우팅메소드
 //호출주소: http://localhost:3000/article/modify
 router.post('/modify',async(req,res)=>{
+
+    //STEP1: 사용자 수정한 데이터를 추출한다.
+    //게시글 고유번호 추출하기 
+    const articleIdx = req.body.article_id; //html Hidden tag에서 추출한다. 
+
+    const title = req.body.title;
+    const contents = req.body.contents;
+    const display_code = req.body.display;
+
+    //STEP2: 수정할 JSON 데이터를 생성합니다.
+    //주의:중요: 수정할 컬럼과 값만 지정하고 컬럼의 속성은 article.js모델의 속성명과 일치해야한다.
+
+    const article = {
+        title,
+        contents,
+        is_display_code:display_code,
+        ip_address:"222.222.222.222",
+        edit_date:Date.now(),
+        edit_member_id:1,
+    };
+
+    //수정된 데이터 건수 결과값으로 전달됩니다.
+    const updatedCnt = await db.Article.update(article,{where:{article_id:articleIdx}});
+
+
     //기존 게시글 db수정처리후
     //목록 페이지로 이동
     res.redirect('/article/list');
  });
 
 //기존 단일 게시글 삭제처리 요청과 응답처리 라우팅메소드 
-//호출주소: http://localhost:3000/article/delete
+//호출주소: http://localhost:3000/article/delete?id=1
 router.get('/delete',async(req,res)=>{
+
+    //step1: 삭제할 게시글 고유번호 추출하기 
+    const articleIdx = req.query.id; 
+
+    //step2: 해당 게시글 삭제하기 
+    const deletedCnt = await db.Article.destroy({where:{article_id:articleIdx}});
+
     //기존 게시글 db 삭제 처리후
     //목록 페이지로 이동
     res.redirect('/article/list');
@@ -85,8 +117,17 @@ router.get('/delete',async(req,res)=>{
 //기존 단일게시글 정보 조회 확인 웹페이지 요청과 응답처리 라우팅메소드
 //http://localhost:3000/article/modify/1
 router.get('/modify/:id',async(req,res)=>{
+
+    //Step1: 현재 게시글 고유번호를 추출한다.
+    const articleIdx = req.params.id;
+
+    //Step2: 해당 게시글 번호를 기준으로 단일 게시글 정보를 조회한다.
+    //SELECT * FROM article WHERE article_id = 1; SQL구문이 백엔드에서 만들어져서
+    //DB서버로 전송되어 실행되고 그결과를 백엔드에서 반환받는다. 
+    const article = await db.Article.findOne({where:{article_id:articleIdx}});
+
     //db에서 해당 게시글 번호와 일치하는 단일게시글 정보조회 
-    res.render('article/modify.ejs');
+    res.render('article/modify.ejs',{article});
 });
 
 

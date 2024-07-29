@@ -55,9 +55,9 @@
                                 <div class="form-group">
                                     <label class="control-label">게시여부</label>
                                     <select class="form-control" id="display" name="display">
-                                        <option value="9" <% if(article.display == 9){ %>selected <% } %> >선택</option>
-                                        <option value="1" <% if(article.display == 1){ %>selected <% } %> >게시</option>
-                                        <option value="0" <% if(article.display == 0){ %>selected <% } %> >게시안함</option>
+                                        <option value="9" <% if(article.is_display_code == 9){ %>selected <% } %> >선택</option>
+                                        <option value="1" <% if(article.is_display_code == 1){ %>selected <% } %> >게시</option>
+                                        <option value="0" <% if(article.is_display_code == 0){ %>selected <% } %> >게시안함</option>
                                     </select>
                                 </div>
                             </div>
@@ -73,3 +73,14 @@
                 </form>
 
             </div>
+
+
+<script>
+    $("#btnDelete").click(function(){
+
+        if(confirm("정말로 삭제하시겠습니까?")){
+            location.href = "/article/delete?id=<%=article.article_id%>"
+        }
+
+    });
+</script>
