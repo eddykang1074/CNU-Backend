@@ -4,20 +4,23 @@
     "password": "eddy524640!",
     "database": "edu_community",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone":"+09:00"
   },
   "test": {
     "username": "root",
     "password": "eddy524640!",
     "database": "edu_community",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+     "timezone":"+09:00"
   },
   "production": {
     "username": "root",
     "password": "eddy524640!",
     "database": "edu_community",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+     "timezone":"+09:00"
   }
 }

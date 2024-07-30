@@ -30,25 +30,25 @@
                                 <div class="form-group">
                                     <label class="control-label" for="company_code">소속회사</label>
                                     <select id="company_code" name="company_code" class="form-control">
-                                        <option value="9">전체</option>
-                                        <option value="0">자회사</option>
-                                        <option value="1">협력사</option>
+                                        <option value="9" <% if(searchOption.company_code == "9"){%>selected <% } %> >전체</option>
+                                        <option value="0" <% if(searchOption.company_code == "0"){%>selected <% } %> >자회사</option>
+                                        <option value="1" <% if(searchOption.company_code == "1"){%>selected <% } %> >협력사</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label" for="OrderName">관리자아이디</label>
-                                    <input type="text" name="admin_id" class="form-control">
+                                    <input type="text" name="admin_id" class="form-control" value="<%=searchOption.admin_id%>">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label" for="use_yn_code">사용여부</label>
                                     <select id="use_yn_code" name="use_yn_code" class="form-control">
-                                        <option value="9">전체</option>
-                                        <option value="0">사용안함</option>
-                                        <option value="1">사용함</option>
+                                        <option value="9" <% if(searchOption.use_yn_code == "9"){%>selected <% } %> >전체</option>
+                                        <option value="0" <% if(searchOption.use_yn_code == "0"){%>selected <% } %> >사용안함</option>
+                                        <option value="1" <% if(searchOption.use_yn_code == "1"){%>selected <% } %> >사용함</option>
                                     </select>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                                                             협력사
                                                         <%}%>
                                                     </td>
-                                                    
+
                                                     <td><%=admins[i].dept_name%></td>
                                                     <td>
                                                         <% if(admins[i].used_yn_code == 1){%>
@@ -103,7 +103,7 @@
                                                             미사용
                                                         <%}%>
                                                     </td>
-                                                    <td><%=admins[i].reg_date%></td>
+                                                    <td><%=moment(admins[i].reg_date).format('YYYY-MM-DD HH:mm')%></td>
                                                 </tr>
                 
                                             <% } %>

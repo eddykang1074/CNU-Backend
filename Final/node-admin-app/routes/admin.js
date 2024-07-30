@@ -18,13 +18,20 @@ var db = require('../models/index.js');
 */
 router.get('/list', async(req, res, next)=>{
 
+    //관리자 목록조회 조회옵션 데이터 정의 =ViewModel
+    const searchOption = {
+        company_code:"9",
+        admin_id:"",
+        use_yn_code:"9"
+    }
+
     //Step1: 전체 관리자 계정목록 조회하기
     //findAll = Select * from admin; SQL구문으로 ORM Framework이 내부적으로
     //자동 생성해서 db서버에 전달/실행되고 그 결과물이 백엔드로 반환됩니다.
     const admins = await db.Admin.findAll(); 
 
     //step2: 관리자 계정목록 데이터 뷰파일 전달하기 
-    res.render('admin/list.ejs',{admins:admins});
+    res.render('admin/list.ejs',{admins,moment,searchOption});
 });
 
 /*
@@ -35,11 +42,22 @@ router.get('/list', async(req, res, next)=>{
 */
 router.post('/list',async(req,res)=>{
     //Step1:조회 옵션정보 추출하기
+    const company_code = req.body.company_code;
+    const admin_id = req.body.admin_id;
+    const use_yn_code = req.body.use_yn_code;
 
     //Step2:조회옵션으로 관리자정보 조회하기
+    const admins = await db.Admin.findAll({where:{admin_id:admin_id}});
+
+    //Step3: 조회옵션 기본값을 사용자가 입력/선택한값으로 저장해서 뷰에전달한다.
+    const searchOption = {
+        company_code:company_code,
+        admin_id:admin_id,
+        use_yn_code:use_yn_code
+    }
 
     //Step3:조회결과데이터 뷰에전달하기
-    res.render('admin/list.ejs');
+    res.render('admin/list.ejs',{admins,moment,searchOption});
 });
 
 
@@ -63,11 +81,36 @@ router.get('/create', async(req, res, next)=> {
 router.post('/create', async(req, res, next)=> {
 
     //Step1: 신규 관리자 정보 추출하기
-    // const id = req.body.id;
-    // const pw = req.body.pw;
-    // const code = req.body.code;
+    const admin_id = req.body.admin_id;
+    const admin_password = req.body.admin_password;
+    const company_code = req.body.company_code;
+    const dept_name = req.body.dept_name;
+    const admin_name = req.body.admin_name;
+    const email = req.body.email;
+    const telephone = req.body.telephone;
+    const use_yn_code = req.body.use_yn_code;
 
     //Step2: 신규 관리자 정보 DB저장 처리
+    //주의/중요: db에 저장할 데이터 구조는 반드시 해당 모델의 속성명과 동일해야한다.
+    //신규 데이터 등록시 모델의 속성중 NotNull(allowNull:false)인 속성값은 반드시 값을 등록해야합니다.
+    const admin = {
+        company_code,
+        admin_id,
+        admin_password,
+        admin_name,
+        email,
+        telephone,
+        dept_name,
+        used_yn_code:use_yn_code,
+        reg_date:Date.now(),
+        reg_member_id:1
+    };
+
+    //db admin 테이블에 상기 신규 데이터를 등록처리하고 실제 저장된 
+    //관리자 계정정보를 db서버가 반환한다. 
+    //create()==> INSERT INTO admin(...)values(...) SQL구문을 ORM FX가 만들어서
+    //DB서버에 전달하여 실행하고 저장결과를 다시 반환한다. 
+    const registedAdmin = await db.Admin.create(admin);
 
     //Step3: 목록 페이지로 이동시키기
     res.redirect('/admin/list');
