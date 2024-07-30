@@ -81,15 +81,19 @@
                                         </thead>
                                         <tbody class="hoverTblBody">
 
-                                            <tr>
-                                                <td><a href="/admin/modify/1">code.AdminID</a></td>
-                                                <td>code.AdminName</a></td>
-                                                <td>code.AdminEmail</td>
-                                                <td>code.Company</td>
-                                                <td>code.CompanyPosition</td>
-                                                <td>code.UseYN</td>
-                                                <td>Date</td>
-                                            </tr>
+                                            <% for(var i =0;i<admins.length;i++){ %>
+
+                                                <tr>
+                                                    <td><a href="/admin/modify/1">code.AdminID</a></td>
+                                                    <td>code.AdminName</a></td>
+                                                    <td>code.AdminEmail</td>
+                                                    <td>code.Company</td>
+                                                    <td>code.CompanyPosition</td>
+                                                    <td>code.UseYN</td>
+                                                    <td>Date</td>
+                                                </tr>
+                
+                                            <% } %>
 
                                         </tbody>
                                     </table>

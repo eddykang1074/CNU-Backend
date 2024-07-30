@@ -3,6 +3,10 @@
 var express = require('express');
 var router = express.Router();
 
+//ORM DB객체 참조하기 
+var db = require('../models/index.js');
+
+
 /*
 - 관리자 계정 목록 조회 웹페이지 요청과 응답처리 라우팅메소드
 - 요청주소: http://localhost:5001/admin/list
@@ -10,7 +14,14 @@ var router = express.Router();
 - 응답결과: 관리자계정 목록 조회 웹페이지(뷰+Data) 반환
 */
 router.get('/list', async(req, res, next)=>{
-    res.render('admin/list.ejs');
+
+    //Step1: 전체 관리자 계정목록 조회하기
+    //findAll = Select * from admin; SQL구문으로 ORM Framework이 내부적으로
+    //자동 생성해서 db서버에 전달/실행되고 그 결과물이 백엔드로 반환됩니다.
+    const admins = await db.Admin.findAll(); 
+
+    //step2: 관리자 계정목록 데이터 뷰파일 전달하기 
+    res.render('admin/list.ejs',{admins:admins});
 });
 
 /*
