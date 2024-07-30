@@ -84,13 +84,26 @@
                                             <% for(var i =0;i<admins.length;i++){ %>
 
                                                 <tr>
-                                                    <td><a href="/admin/modify/1">code.AdminID</a></td>
-                                                    <td>code.AdminName</a></td>
-                                                    <td>code.AdminEmail</td>
-                                                    <td>code.Company</td>
-                                                    <td>code.CompanyPosition</td>
-                                                    <td>code.UseYN</td>
-                                                    <td>Date</td>
+                                                    <td><a href="/admin/modify/<%=admins[i].admin_member_id%>"><%=admins[i].admin_id%></a></td>
+                                                    <td><%=admins[i].admin_name%></td>
+                                                    <td><%=admins[i].email%></td>
+                                                    <td>
+                                                        <% if(admins[i].company_code == 0){%>
+                                                            자회사
+                                                        <% }else{ %>
+                                                            협력사
+                                                        <%}%>
+                                                    </td>
+                                                    
+                                                    <td><%=admins[i].dept_name%></td>
+                                                    <td>
+                                                        <% if(admins[i].used_yn_code == 1){%>
+                                                            사용중
+                                                        <% }else{ %>
+                                                            미사용
+                                                        <%}%>
+                                                    </td>
+                                                    <td><%=admins[i].reg_date%></td>
                                                 </tr>
                 
                                             <% } %>

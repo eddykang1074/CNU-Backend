@@ -3,6 +3,9 @@
 var express = require('express');
 var router = express.Router();
 
+//moment 패키지
+var moment = require('moment');
+
 //ORM DB객체 참조하기 
 var db = require('../models/index.js');
 
