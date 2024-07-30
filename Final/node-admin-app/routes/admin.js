@@ -126,11 +126,36 @@ router.post('/create', async(req, res, next)=> {
 router.post('/modify', async(req, res, next)=> {
 
     //STEP1: 사용자 수정데이터 추출하기
-    // const id = req.body.id;
-    // const pw = req.body.pw;
-    // const code = req.body.code;
+    //관리자 계정 고유번호
+    const admin_member_id = req.body.admin_member_id;
+
+    //관리자 계정:ex) eddy
+    const admin_id = req.body.admin_id;
+    const admin_password = req.body.admin_password;
+    const company_code = req.body.company_code;
+    const dept_name = req.body.dept_name;
+    const admin_name = req.body.admin_name;
+    const email = req.body.email;
+    const telephone = req.body.telephone;
+    const use_yn_code = req.body.use_yn_code;
 
     //STEP2: DB 해당 관리자 계정 수정처리하기 
+    const admin = {
+        company_code,
+        dept_name,
+        admin_name,
+        email,
+        telephone,
+        used_yn_code:use_yn_code,
+        edit_date:Date.now(),
+        edit_member_id:1,
+    };
+
+    //db서버에 해당 관리자계정 정보를 수정하고 실제 수정된 건수를 db서버에 반환한다.
+    //update() => Update admin Set company_code =0,.... WHERE admin_member_id=1;
+    const updatedCnt = await db.Admin.update(admin,{
+        where:{admin_member_id:admin_member_id}
+    });
 
 
     //STEP3: 수정처리후 목록페이지로 이동처리
@@ -159,11 +184,15 @@ router.get('/delete', async(req, res, next)=> {
 router.get('/modify/:id', async(req, res, next)=> {
 
     //step1: URL에서 관리자 고유번호를 추출합니다.
-
+    const admin_member_id = req.params.id;
+    
     //step2: 단일 관리자 정보를 db에서 조회해옵니다. 
+    const admin = await db.Admin.findOne({
+        where:{admin_member_id:admin_member_id}
+    });
 
     //step3: 단일 관리자 정보를 뷰에 전달합니다.
-    res.render('admin/modify');
+    res.render('admin/modify.ejs',{admin});
 });
 
 

@@ -22,6 +22,8 @@
             <!--우측 콘텐츠 영역 -->
             <div class="wrapper wrapper-content">
                 <form method="post" action="/admin/modify">
+                    <input type="hidden" name="admin_member_id" value="<%=admin.admin_member_id%>"/>
+
                     <div class="ibox-content m-b-sm border-bottom">
 
                         <!-- 관리자계정/암호/소속회사 UI제공 -->
@@ -29,7 +31,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">관리자아이디</label>
-                                    <input type="text" name="admin_id" class="form-control"/>
+                                    <input type="text" name="admin_id" readonly value="<%=admin.admin_id%>" class="form-control"/>
                                 </div>
                             </div>
                             
@@ -44,9 +46,9 @@
                                 <div class="form-group">
                                     <label class="control-label">소속회사코드</label>
                                     <select id="company_code" name="company_code" class="form-control">
-                                        <option value="9">선택</option>
-                                        <option value="0">자회사</option>
-                                        <option value="1">협력사</option>
+                                        <option value="9" <% if(admin.company_code == "9"){%>selected <% } %> >선택</option>
+                                        <option value="0" <% if(admin.company_code == "0"){%>selected <% } %> >자회사</option>
+                                        <option value="1" <% if(admin.company_code == "1"){%>selected <% } %>>협력사</option>
                                     </select>
                                 </div>
                             </div>
@@ -57,21 +59,21 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">부서명</label>
-                                    <input type="text" name="dept_name" class="form-control" value="">
+                                    <input type="text" name="dept_name" class="form-control" value="<%=admin.dept_name%>">
                                 </div>
                             </div>
                             
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">이름</label>
-                                    <input type="text" name="admin_name" class="form-control" value="">
+                                    <input type="text" name="admin_name" class="form-control" value="<%=admin.admin_name%>">
                                 </div>
                             </div>
     
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">메일주소</label>
-                                    <input type="text" name="email" class="form-control" value="">
+                                    <input type="text" name="email" class="form-control" value="<%=admin.email%>">
                                 </div>
                             </div>
                         </div>
@@ -81,7 +83,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">전화번호</label>
-                                    <input type="text" name="telephone" class="form-control" value="">
+                                    <input type="text" name="telephone" class="form-control" value="<%=admin.telephone%>">
                                 </div>
                             </div>
                             
@@ -89,9 +91,9 @@
                                 <div class="form-group">
                                     <label class="control-label">사용여부</label>
                                     <select id="use_yn_code" name="use_yn_code" class="form-control">
-                                        <option value="9">선택</option>
-                                        <option value="0">사용안함</option>
-                                        <option value="1">사용함</option>
+                                        <option value="9" <% if(admin.used_yn_code == "9"){%>selected <% } %> >선택</option>
+                                        <option value="0" <% if(admin.used_yn_code == "0"){%>selected <% } %> >사용안함</option>
+                                        <option value="1" <% if(admin.used_yn_code == "1"){%>selected <% } %> >사용함</option>
                                     </select>
                                 </div>
                             </div>
