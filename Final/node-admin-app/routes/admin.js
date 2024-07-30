@@ -171,6 +171,16 @@ router.post('/modify', async(req, res, next)=> {
 - 응답결과: 기존 관리자 계정 정보 삭제처리 후 목록 페이지 이동
 */
 router.get('/delete', async(req, res, next)=> {
+
+    //step1: 관리자 고유번호를 추출한다.
+    const admin_member_id = req.query.id;
+
+    //step2: 관리자 고유번호에 해당하는 단일 관리자 정보를 삭제처리한다.
+    const deletedCnt = await db.Admin.destroy({
+        where:{admin_member_id:admin_member_id}
+    });
+
+    //step3:삭제후 목록 페이지로 이동한다.
     res.redirect('/admin/list');
 });
 
