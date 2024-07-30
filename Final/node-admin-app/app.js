@@ -3,7 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+//환경설정파일 구성하기 
+require('dotenv').config();
+
 var expressLayouts = require('express-ejs-layouts');
+
 
 //ORM DB연결객체 sequelize 참조하기 
 var sequelize = require('./models/index.js').sequelize;
