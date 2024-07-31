@@ -49,6 +49,7 @@ module.exports =(server)=>{
             //현재 채널에 입장하고 있는 사용자에게만 메시지 발송하기 
             //socket.emit(); 현재 서버소켓을 호출한(입장하는) 사용자에게만 메시지 발송하기 
             socket.emit("entryOk",` ${nickName} 라는 대화명으로 ${channel} 채널에 입장했습니다.`);
+        
         });
 
 
@@ -64,7 +65,17 @@ module.exports =(server)=>{
         });
 
 
+        
+        //접속한 채팅방 명시적 퇴장하기 
+        socket.on('exit',async(channel,nickName)=>{
 
+            socket.to(channel).emit("exitOk",`${nickName}님이 퇴장했습니다.`); 
+            
+            socket.leave(channel);//채팅방 퇴장처리
+
+            socket.emit("exitOk",`채팅방을 퇴장했습니다.`);
+        
+        });
 
 
 

@@ -12,7 +12,9 @@
 
     닉네임: <input type="text" id="nickname"/> <br/>
     채팅방명:<input type="text" id="channel"/>
-    <button id="btnEntry">입장</button><br/><br/>
+    <button id="btnEntry">입장</button>
+    <button id="btnExit">퇴장</button>
+    <br/><br/>
     
 
     메시지: <input type="text" id="message"/> <br/>
@@ -91,6 +93,21 @@
             socket.emit('entry',channel,nickName);
 
         });
+
+
+        //현재 채널(채팅방) 퇴장하기
+        $("#btnExit").click(function(){
+            const channel = $("#channel").val();
+            const nickName = $("#nickname").val();
+            socket.emit('exit',channel,nickName);
+        });
+
+        
+        //채팅방 퇴장완료 메시지 수신기 
+        socket.on('exitOk',function(exitMsg){
+            $("#chatHistory").append(`<li>${exitMsg}</li>`);
+        });
+        
 
 
         //채팅방 입장 완료후 입장완료 메시지 수신기 기능구현
