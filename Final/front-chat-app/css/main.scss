@@ -1,0 +1,2437 @@
+/************************************************
+	************************************************
+						A1. Importing Sass Variables
+	************************************************
+************************************************/
+@import 'variables.scss';
+
+
+
+
+/************************************************
+	************************************************
+							A2. Importing Web Fonts
+	************************************************
+************************************************/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap');
+
+
+
+/************************************************
+	************************************************
+											Body Css							
+	************************************************
+************************************************/
+html, body {
+	height: 100%;
+	font-size: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font: 400 .8rem 'Open Sans', sans-serif;
+	color: $font-color;
+	min-height: 100%;
+	position: relative;
+	&.authentication {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: auto;
+	}
+}
+
+
+/*************** Loading ***************/
+#loading-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 5000;
+	background: rgba(0, 0, 0, 0.95);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	.spinner-border {
+		width: 3rem;
+		height: 3rem;
+		color: $primary-bg;
+		border-width: .5em;
+	}
+}
+
+
+
+/************************************************
+	************************************************
+										Re Usable Css							
+	************************************************
+************************************************/
+
+a {
+	color: $black;
+	&:hover {
+		text-decoration: none;
+		color: $primary-bg;
+	}
+}
+
+
+
+img {
+	@include roundedCorners(3);
+}
+
+
+
+// Unorder List *************************
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	&.custom {
+		font-size: .825rem;
+		margin: 20px 0 0 20px;
+		li {
+			line-height: 180%;
+		}
+	}
+}
+
+
+
+// Headings *************************
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 600;
+}
+h1 {
+	font-size: 2.5rem;
+	margin-bottom: .8rem;
+}
+h2 {
+	font-size: 2rem;
+	margin-bottom: .5rem;
+}
+h3 {
+	font-size: 1.5rem;
+	margin-bottom: .5rem;
+}
+h4 {
+	font-size: 1.25rem;
+	margin-bottom: .4rem;
+}
+h5 {
+	font-size: 1rem;
+	margin-bottom: .3rem;
+}
+h6 {
+	font-size: .85rem;
+	margin-bottom: .2rem;
+}
+p {
+	margin-bottom: .2rem;
+	line-height: 180%;
+}
+
+
+
+/************************************************
+	************************************************
+										Layout CSS
+	************************************************
+************************************************/
+// Page Wrapper *************************
+.page-wrapper {
+	padding: 10px;
+	background: $primary-bg-dark;
+}
+
+
+
+// Sidebar wrapper *************************
+.sidebar-wrapper {
+	width: 450px;
+	height: calc(100vh - 20px);
+	position: fixed;	
+	top: 10px;
+	left: 10px;
+	z-index: 999;
+	-webkit-transition: left .3s ease, width .3s ease;
+	transition: left .3s ease, width .3s ease;
+
+	// Sidebar content
+	.sidebar-tabs {
+		display: flex;
+		flex-direction: row;
+		height: calc(100vh - 20px);
+		.nav {
+			flex-direction: column;
+			align-items: center;
+			width: 75px;
+			padding: 1rem 0.5rem 1rem 0.5rem;
+			@include roundedCornersAll(10px, 0, 0, 10px);
+			background: $sidebar-bg;
+			height: calc(100vh - 20px);
+			a.logo {
+				margin: .5rem auto 4rem auto;
+				img {
+					width: 40px;
+					height: 40px;
+				}
+			}
+			a.nav-link {
+				padding: 20px;
+				display: flex;
+				position: relative;
+				img {
+					width: 18px;
+					height: 18px;
+				}
+				&:hover {
+					background: $sidebar-hover-bg;
+					@include roundedCorners(50);
+					.nav-link-text {
+						display: block;
+					}
+				}
+				&.active {
+					background: $sidebar-active-bg;
+					@include roundedCorners(50);
+					i {
+						color: $primary-bg;
+					}
+				}
+				.nav-link-text {
+					padding: 3px 12px;
+					background: $nav-tooltip-bg;
+					color: $nav-tooltip-text;
+					display: none;
+					position: absolute;
+					left: 60px;
+					font-size: .7rem;
+					top: 20px;
+					z-index: 100;
+					@include roundedCorners(2);
+					&:before {
+						content: '';
+						position: absolute;
+						left: -5px;
+						top: 5px;
+						width: 0;
+						height: 0;
+						border-top: 5px solid transparent;
+						border-bottom: 5px solid transparent;
+						border-right: 5px solid $nav-tooltip-bg;
+					}
+				}
+			}
+		}
+		.tab-content {
+			width: 375px;
+			padding: 10px 0;
+			background: $tab-content-bg;
+			border-right: 2px solid $border-bg-dark;
+			> .tab-pane {
+				.tab-pane-header {
+					margin: 9px 20px 15px 20px;
+					font-size: 1.3rem;
+					font-weight: 600;
+					color: $primary-bg;
+				}				
+			}
+		}
+	}
+}
+@media screen and (max-width: 768px) {
+	.sidebar-wrapper {
+		.sidebar-tabs {
+			.nav {
+				a.logo {
+					margin: 4.5rem auto 4rem auto;
+				}
+			}
+			.tab-content {
+				width: 300px;
+			}
+		}
+	}
+}
+
+
+
+// Main Container *************************
+.main-container {
+	background: $page-content-bg;
+	@include roundedCorners(10);
+	-webkit-transition: padding-left .3s ease;
+	transition: padding-left .3s ease;
+	padding: 0 0 0 450px;
+	height: calc(100vh - 20px);
+}
+
+
+// Empty Screen *************************
+.empty-chat-screen {
+	height: calc(100vh - 20px);
+	background: $page-content-bg;
+	z-index: 100;
+	@include roundedCornersAll(0, 10px, 10px, 0);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	img.my-avatar {
+		max-width: 90px;
+		height: 90px;
+		@include roundedCorners(50);
+		margin: 0 0 1rem 0;
+	}
+	img.empty-chat-display {
+		max-width: 240px;
+		height: 240px;
+		margin: 0;
+	}
+	h5 {
+		font-size: .8rem;
+		font-weight: 400;
+	}
+	h6 {
+		font-size: .9rem;
+		color: $primary-bg;
+		margin: 0 0 1rem 0;
+		font-weight: 400;
+	}
+	p {
+		font-size: .825rem;
+		color: $font-color-light;
+	}
+	.lets-chat-mobile-view {
+		display: none;
+	}
+}
+@media screen and (max-width: 768px) {
+	.empty-chat-screen {
+		@include roundedCorners(10);
+		p {
+			display: none;
+		}
+		.lets-chat-mobile-view {
+			display: block;
+			margin: 2.5rem 0 1rem 0;
+			font-size: 1.5rem;
+			min-width: 180px;
+			@include roundedCorners(30);
+		}
+	}
+}
+
+
+@media screen and (max-width: 768px) {
+	// Page Wrapper *************************
+	.page-wrapper {
+		.sidebar-wrapper {
+			left: -470px;
+		}
+		&.toggled {
+			.sidebar-wrapper {
+				left: 10px;
+			}
+			.toggle-sidebar {
+				span.toggle-icon {
+					width: 15px;
+					height: 15px;
+					background-size: 100%;
+					background-image: url(../img/close.svg);
+					background-repeat:  no-repeat;
+				}
+			}
+		}
+		.main-container {
+			padding-left: 0px;
+		}
+	}
+}
+
+
+// Search Container *************************
+.search-container {
+	margin: 0 0 .5rem 0;
+	padding: 0 20px;
+	.input-group {
+		position: relative;
+		&:after {
+			position: absolute;
+			top: 10px;
+			left: 15px;
+			content: '';
+			padding: .375rem 0 .375rem .75rem;
+			background: url(../img/icon-search.svg);
+			background-size: 100%;
+			width: 21px;
+			height: 21px;
+			z-index: 100;
+		}
+	}
+	.form-control {
+		border: 2px solid $form-border;
+		@include roundedCorners(5);
+		background: $white;
+		height: 40px;
+		padding: .375rem 0 .375rem 3rem;			
+		&:focus, &:hover {
+			border: 2px solid $primary-bg;
+			@include transition(all, 0.5s, ease-in-out);
+		}
+	}
+}
+
+// Chat Users *************************
+.chat-users-container {
+	.recent-chat-list {
+		padding: 15px 20px;
+		> h5 {
+			font-weight: 600;
+			font-size: 1rem;
+			margin: 0 0 10px 0;
+		}
+		> ul.chat-cards {
+			margin: 0 0 10px 0;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			li {
+				margin-top: 20px;
+				a {
+					padding: 10px;
+					@include roundedCorners(4);
+					min-width: 100px;
+					max-width: 100px;
+					min-height: 110px;
+					display: flex;
+					flex-direction: column;
+					background: $white;
+					box-shadow: 5px 5px 10px $card-shadow;
+					> .user-avatar {
+						position: relative;
+						margin: -30px 0 15px 0;
+						width: 46px;
+						height: 46px;
+						.status {
+							position: absolute;
+							bottom: 0px;
+							right: 0px;
+							@include roundedCorners(30);
+							width: 12px;
+							height: 12px;
+							border: 2px solid $white;
+							&.online {
+								background: $green;
+							}
+							&.busy {
+								background: $red;
+							}
+							&.away {
+								background: $yellow;
+							}
+							&.offline {
+								background: $dark-bg;
+							}
+						}
+						img {
+							@include roundedCorners(50);
+							width: 46px;
+							height: 46px;
+						}
+						.bg-avatar {
+							width: 46px;
+							height: 46px;
+							@include roundedCorners(50);
+							font-size: 11px;
+							font-weight: 600;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							&.blue {
+								background: $light-blue;
+								color: $dark-blue;
+							}
+							&.yellow {
+								background: $light-yellow;
+								color: $dark-yellow;
+							}
+							&.red {
+								background: $light-red;
+								color: $dark-red;
+							}
+							&.green {
+								background: $light-green;
+								color: $dark-green;
+							}
+							&.pink {
+								background: $light-pink;
+								color: $dark-pink;
+							}
+							&.orange {
+								background: $light-orange;
+								color: $dark-orange;
+							}
+							&.violet {
+								background: $light-violet;
+								color: $dark-violet;
+							}
+							&.brown {
+								background: $light-brown;
+								color: $dark-brown;
+							}
+						}
+					}
+					> h5 {
+						font-size: 12px;
+						margin: 0 10px 10px 0;
+						font-weight: 400;
+						color: $font-color-light;
+					}
+					> h6 {
+						font-size: 10px;
+						margin: 0 0 15px 0;
+						font-weight: 400;
+						color: $font-color-light;
+					}
+					.video-chat-icons {
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						.video-chat {
+							width: 30px;
+							height: 30px;
+							@include roundedCorners(4);
+							background: $white-pearl;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							img {
+								width: 16px;
+								height: 16px;
+							}
+						}
+						button.recent-delete {
+							cursor: pointer;
+							border: 0;
+							background: transparent;
+							img {
+								width: 14px;
+								height: 14px;
+							}
+							&:hover {
+								opacity: 0.7;
+							}
+						}
+					}
+					&:hover {
+						background: $blue;
+						color: $white;
+						> h5 {
+							color: $white;
+						}						
+						> h6 {
+							color: $white;
+						}
+					}
+				}
+			}
+		}
+	}
+	.users-container {
+		min-height: calc(100vh - 350px);
+		ul.users-list {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;			
+			li {
+				border-bottom: 1px solid $border-bg-dark;
+				a {
+					padding: 15px 20px;
+					display: flex;
+					flex-direction: row;
+					> .chat-avatar {
+						margin: 0 1rem 0 0;
+						position: relative;
+						width: 46px;
+						height: 46px;
+						.status {
+							position: absolute;
+							bottom: 0px;
+							right: 0px;
+							@include roundedCorners(30);
+							width: 14px;
+							height: 14px;
+							border: 2px solid $white;
+							&.online {
+								background: $green;
+							}
+							&.busy {
+								background: $red;
+							}
+							&.away {
+								background: $yellow;
+							}
+							&.offline {
+								background: $dark-bg;
+							}
+						}
+						img {
+							@include roundedCorners(50);
+							width: 46px;
+							height: 46px;
+						}
+						.bg-avatar {
+							width: 46px;
+							height: 46px;
+							@include roundedCorners(50);
+							font-size: 14px;
+							font-weight: 600;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							&.blue {
+								background: $light-blue;
+								color: $dark-blue;
+							}
+							&.yellow {
+								background: $light-yellow;
+								color: $dark-yellow;
+							}
+							&.red {
+								background: $light-red;
+								color: $dark-red;
+							}
+							&.green {
+								background: $light-green;
+								color: $dark-green;
+							}
+							&.pink {
+								background: $light-pink;
+								color: $dark-pink;
+							}
+							&.orange {
+								background: $light-orange;
+								color: $dark-orange;
+							}
+							&.violet {
+								background: $light-violet;
+								color: $dark-violet;
+							}
+							&.brown {
+								background: $light-brown;
+								color: $dark-brown;
+							}
+						}
+					}
+					.users-list-body {
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						flex: 1;
+						.chat-msg {
+							flex: 1;
+							max-width: 210px;
+							> h6 {
+								margin: 0;
+							}
+							> p {
+								margin: 0;
+								line-height: 200%;
+								font-size: .775rem;
+								color: $font-color-light;
+							}
+						}
+						.chat-time {
+							color: $font-color-light;
+							font-size: .725rem;
+							display: flex;
+							align-items: flex-end;
+							flex-direction: column;
+							> .time {
+								margin: 0;
+							}
+							> .count {
+								@include roundedCorners(50);
+								width: 20px;
+								height: 20px;
+								background: $primary-bg;
+								color: $white;
+								font-size: .7rem;
+								font-weight: 700;
+								margin: 0 0 .2rem 0;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+							}
+						}				
+					}
+					&:hover {
+						@include transition(all, 0.5s, ease);
+						color: $font-color;
+						background: $chat-hover;
+					}					
+				}
+				&.active-chat {
+					color: $font-color;
+					background: $chat-active;
+					a {
+						&:hover {
+							color: $font-color;
+							background: $chat-active;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+@media screen and (max-width: 768px) {
+	.chat-users-container {
+		.recent-chat-list {
+			> ul.chat-cards {
+				justify-content: flex-start;
+				li {
+					margin-right: 10px;
+				}
+				li:nth-child(3) {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+
+// Chat Content Wrapper *************************
+.chat-content-wrapper {
+	padding: 0;
+}
+
+
+// Active User *************************
+.active-user-chatting {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: row;
+	padding: 1rem 1.5rem;
+	border-bottom: 2px solid $border-bg-light;	
+	.active-user-info {
+		display: flex;
+		align-items: center;
+		img.avatar {
+			margin: 0 10px 0 0;
+			width: 40px;
+			height: 40px;
+			@include roundedCorners(30);
+		}
+		.bg-chat-avatar {
+			width: 50px;
+			height: 50px;
+			@include roundedCorners(50);
+			font-size: 14px;
+			font-weight: 600;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 15px 0 0;
+			&.blue {
+				background: $light-blue;
+				color: $dark-blue;
+			}
+			&.yellow {
+				background: $light-yellow;
+				color: $dark-yellow;
+			}
+			&.red {
+				background: $light-red;
+				color: $dark-red;
+			}
+			&.green {
+				background: $light-green;
+				color: $dark-green;
+			}
+			&.pink {
+				background: $light-pink;
+				color: $dark-pink;
+			}
+			&.orange {
+				background: $light-orange;
+				color: $dark-orange;
+			}
+			&.violet {
+				background: $light-violet;
+				color: $dark-violet;
+			}
+			&.brown {
+				background: $light-brown;
+				color: $dark-brown;
+			}
+		}
+		> .avatar-info {
+			h5 {
+				font-size: .9rem;
+				margin: 0;
+				line-height: 160%;
+			}
+			.typing {
+				color: $font-color-light;
+				font-size: .725rem;
+			}
+		}
+	}
+	.chat-actions {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		align-items: center;
+		a {
+			width: 40px;
+			height: 40px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			@include roundedCorners(50);
+			box-shadow: 5px 5px 10px $card-shadow;
+			margin: 0 0 0 10px;
+			img {
+				width: 18px;
+				height: 18px;
+			}
+			&:hover {
+				box-shadow: 5px 5px 20px darken($card-shadow, 10%);
+				i {
+					color: $white;
+				}
+			}
+		}
+	}
+	.toggle-sidebar {
+		background: $primary-bg;
+		@include roundedCorners(30);
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		margin: 0 15px 0 -4px;
+		z-index: 1000;
+		span.toggle-icon {
+			width: 15px;
+			height: 15px;
+			background-size: 100%;
+			background-image: url(../img/menu.svg);
+			background-repeat:  no-repeat;
+		}
+	}
+}
+@media screen and (max-width: 768px) {
+	.active-user-chatting {
+		.toggle-sidebar {
+			display: flex;
+		}
+	}
+}
+
+
+
+// Chat Container *************************
+.chat-container {
+	position: relative;
+	padding: 1.5rem;
+	height: calc(100vh - 200px);
+	.chat-box {
+		padding: 0;
+		// Chat conversation
+		li {
+			&.chat-left, &.chat-right {
+				display: flex;
+				margin-bottom: 40px;
+			}
+			.chat-avatar {
+				margin-right: 20px;
+				img {
+					width: 48px;
+					height: 48px;
+					@include roundedCorners(30);
+				}
+			}
+			.chat-hour {
+				padding: 0;
+				font-size: .75rem;
+				margin: 5px 0 0 0;
+				color: $font-color-light;
+				&.read {
+					> span {
+						color: $green;
+					}	
+				}
+				> span {
+					font-size: 16px;
+					color: $font-color-light;
+				}
+			}
+			.chat-name {
+				font-size: .75rem;
+				color: $font-color-light;
+				text-align: center;
+				font-weight: 600;
+			}
+			.chat-text-wrapper {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				.chat-text {
+					padding: .7rem 1rem;					
+					background: $primary-light;
+					@include roundedCorners(3);
+					line-height: 150%;
+					align-self: flex-start;
+					position: relative;
+					font-size: .825rem;
+					margin: 0 0 5px 0;
+					p {
+						font-weight: 400;
+						line-height: 190%;
+					}
+					&:first-child {
+						&:before {
+							content: '';
+							position: absolute;
+							width: 0;
+							height: 0;
+							top: 14px;
+							left: -16px;
+							border: 8px solid;
+							border-color: transparent $primary-light $primary-light transparent;
+						}
+					}
+					.chat-img-thumbnail {
+						position: relative;
+						margin: 5px 0;
+						img {
+							max-width: 240px;
+						}
+						a.download {
+							position: absolute;
+							bottom: 10px;
+							right: 10px;
+							display: none;							
+							> img {
+								width: 18px;
+								height: 18px;
+							}
+						}
+						&:hover {
+							.download {
+								width: 36px;
+								height: 36px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								background: rgba(255, 255, 255, 0.3);
+								@include roundedCorners(50);
+							}
+						}
+					}
+				}
+				.chat-files-group {
+					display: flex;
+					flex-direction: row;
+					.chat-file {
+						margin: 0 3px;
+						width: 48px;
+						height: 48px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						background: $white;
+						@include roundedCorners(3);
+						img {
+							width: 24px;
+							height: 24px;
+							@include roundedCorners(0);
+						}
+					}
+				}
+				a.shared-files {
+					display: flex;
+					align-items: center;
+					background: $white;
+					@include roundedCorners(3);
+					padding: 7px 15px;
+					.attached-folder {
+						margin-right: 10px;
+						img {
+							width: 24px;
+							height: 24px;
+							@include roundedCorners(0);
+						}
+					}
+					.attached-link {
+						font-size: .75rem;
+						font-weight: 600;
+					}
+					&:hover {
+						color: $black;
+					}
+				}
+			}			
+			&.chat-right {
+				justify-content: flex-end;
+				> .chat-avatar {
+					margin-left: 20px;
+					margin-right: 0;
+				}
+				.chat-text-wrapper {
+					> .chat-text {
+						text-align: right;
+						background: $light-color;
+						align-self: flex-end;
+						&:before {
+							right: -16px;
+							border-color: transparent transparent $light-color $light-color;
+							left: inherit;
+						}
+					}
+				}
+			}
+			&.divider {
+				position: relative;
+				display: flex;
+				align-items: center;
+				margin: 2rem 0;
+				color: $font-color-light;
+				font-size: .7rem;
+				font-weight: 600;
+				letter-spacing: .5px;
+				text-transform: uppercase;
+				&:before {
+					content: '';
+					display: block;
+					flex: 1;
+					height: 1px;
+					background-color: $border-bg;
+					margin-right: 10px;
+				}
+				&:after {
+					content: '';
+					display: block;
+					flex: 1;
+					height: 1px;
+					background-color: $border-bg;
+					margin-left: 10px;
+				}
+			}
+			&:last-child {
+				&.chat-left, &.chat-right {
+					margin: 0;
+				}
+			}
+		}
+	}
+}
+
+
+// Chat Form *************************
+.chat-form {
+	margin: 0;
+	padding: 1.5rem 1.5rem .5rem 1.5rem;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	.form-group {
+		flex: 1;
+		margin: 0;
+		textarea {
+			height: 40px;
+			font-size: .75rem;
+		}		
+	}
+	.chat-form-actions {
+		display: flex;
+		margin: 0 10px;
+		a.action-icon {
+			position: relative;
+			width: 40px;
+			height: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			img {
+				width: 18px;
+				height: 18px;
+			}
+			.action-icon-tooltip {
+				padding: 3px 12px;
+				background: $black;
+				color: $white;
+				display: none;
+				position: absolute;
+				top: -25px;
+				font-size: .7rem;					
+				z-index: 100;
+				@include roundedCorners(2);
+				&:before {
+					content: '';
+					position: absolute;
+					left: 50%;
+					bottom: -5px;
+					margin-left: -3px;
+					width: 0;
+					height: 0;
+					border-left: 5px solid transparent;
+					border-right: 5px solid transparent;
+					border-top: 6px solid $black;
+				}
+			}
+			.action-icon-popup {
+				padding: 5px;
+				margin-bottom: 10px;
+				background: $white;
+				border: 1px solid $border-bg;
+				display: none;
+				position: absolute;
+				bottom: 32px;
+				right: 0;
+				width: 240px;
+				z-index: 100;
+				@include roundedCorners(5);
+				&:before {
+					content: '';
+					position: absolute;
+					right: 13px;
+					bottom: -6px;
+					width: 12px;
+					height: 12px;
+					transform: rotate(45deg);
+					background: $white;
+					border-bottom: 1px solid $border-bg;
+					border-right: 1px solid $border-bg;
+				}
+				.emoji-list {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					flex-direction: row;
+					flex-wrap: wrap;
+					span {
+						font-size: 1.2rem;
+						padding: 3px;
+						margin: 1px;
+						width: 30px;
+						height: 30px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						&:hover {
+							background: $light-bg;
+							@include roundedCorners(3);
+						}
+					}
+				}
+			}
+			&:hover {
+				background: $light-blue;
+				@include roundedCorners(4);
+				.action-icon-tooltip {
+					display: block;
+				}
+				.action-icon-popup {
+					display: flex;
+				}
+			}
+		}
+	}
+	.btn {
+		display: flex;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		img {
+			width: 21px;
+			height: 21px;
+		}
+	}
+}
+
+
+// Video Call *************************
+.call-container {
+	margin: 2rem 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	.current-user {
+		margin: 0 0 1.5rem 0;
+		img {
+			width: 90px;
+			height: 90px;
+			@include roundedCorners(100);
+		}
+	}
+	h5.calling-user-name {
+		font-weight: 400;
+		margin: 0 0 2rem 0;
+		.calling {
+			color: $green;
+		}
+	}
+	.calling-btns {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: row;
+		.btn {
+			width: 50px;
+			height: 50px;
+			margin: .3rem 1rem;
+			@include roundedCorners(30);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			@include roundedCorners(50);
+			img {
+				width: 18px;
+				height: 18px;
+			}
+		}
+	}
+}
+
+
+// Sidebar User Profile *************************
+.sidebar-user-profile {
+	margin: 0 0 1rem 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	.user-profile {
+		margin: 0 0 2rem 0;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		> img {
+			width: 100px;
+			height: 100px;
+			@include roundedCorners(100);
+			margin: 0 0 .5rem 0;
+		}
+		.online-status {
+			margin: 0 0 1rem 0;
+			.btn.dropdown-toggle {
+				padding: 0;
+				border: 0;
+				font-size: .7rem;
+				padding: 4px 10px;
+				font-weight: 700;
+				&:focus {
+					outline: none;
+					box-shadow: none;
+				}
+			}
+			.online {
+				color: $green;
+			}
+			.busy {
+				color: $red;
+			}
+			.offline {
+				color: $font-color-light;
+			}
+			.dropdown-menu {
+				@include roundedCorners(4);
+				margin: 0;
+				min-width: 130px;
+				left: 50%!important;
+  			margin-left: -65px;
+				border: 1px solid $border-bg;
+			}
+			&:hover {
+				.dropdown-menu {
+					display: block;
+				}
+			}
+			.dropdown-item {
+				font-size: .7rem;
+				padding: 4px 10px;
+				font-weight: 400;
+				text-align: center;
+				&:hover {
+					background: $light-bg;
+				}			
+			}
+		}
+		> h5 {
+			font-size: 1rem;
+			font-weight: 600;
+			margin: 0 0 .5rem 0;
+		}
+		> h6 {
+			font-size: .75rem;
+			font-weight: 400;
+			color: $font-color-light;
+		}
+	}
+}
+.user-profile-list-items {
+	margin: 0 0 2rem 0;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	.profile-list-item {
+		padding: 10px;
+		margin: 0 7px;
+		@include roundedCorners(4);
+		min-width: 90px;
+		max-width: 90px;
+		min-height: 80px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		background: $white;
+		box-shadow: 5px 5px 10px $card-shadow;
+		@include transition(all, 0.5s, ease);
+		&:hover {
+			box-shadow: 10px 10px 20px $card-shadow;
+		}
+		> h5 {
+			font-size: 1.1rem;
+			font-weight: 700;
+			margin: 0 0 .2rem 0;
+		}
+		> h6 {
+			font-size: .725rem;
+			font-weight: 400;
+			color: $font-color-light;
+		}
+	}
+}
+@media screen and (max-width: 768px) {
+	.user-profile-list-items {
+		.profile-list-item {
+			min-width: 80px;
+			max-width: 80px;
+		}
+	}
+}
+.sidebar-profile-container {
+	padding: 0;
+	min-height: calc(100vh - 200px);
+	h5 {
+		font-size: .75rem;
+		font-weight: 700;
+		margin: 0 0 .4rem 0;
+		text-align: center;
+		text-transform: uppercase;
+		color: $font-color-light;
+	}
+	.photos-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: row;
+		flex-wrap: wrap;
+		margin: 0 0 2rem 0;
+		padding: 0 1rem;
+		img {
+			width: 50px;
+			height: 50px;
+			margin: 5px;
+			@include roundedCorners(4);
+		}
+	}
+}
+.sidebar-docs-container {
+	@include roundedCorners(4);
+	background: $white;
+	padding: 1rem;
+	margin: 0 20px;
+	a.attached-file {
+		display: flex;
+		align-items: center;
+		background: $primary-light;
+		@include roundedCorners(3);
+		padding: 7px 15px;
+		margin: 0 0 .15rem 0;
+		.attachment-type {
+			margin-right: 10px;
+			img {
+				width: 24px;
+				height: 24px;
+				@include roundedCorners(0);
+			}
+		}
+		.attachment-text {
+			font-size: .75rem;
+			font-weight: 600;
+		}
+		.download-doc {
+			width: 36px;
+			height: 36px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(255, 255, 255, 0.5);
+			@include roundedCorners(50);
+			margin-left: auto;
+			> img {
+				width: 14px;
+				height: 14px;
+			}
+			&:hover {
+				background: rgba(255, 255, 255, 0.8);
+			}
+		}
+		&:hover {
+			color: $black;
+		}
+	}
+}
+
+
+// Sidebar Account Settings *************************
+.account-settings {
+	margin: 2rem 0 1rem 0;
+	.save-btn-block {
+		padding: 15px 20px;
+	}
+}
+.account-settings-container {
+	margin: 0;
+}
+.account-settings-block {
+	margin: 0 20px 1rem 20px;
+	padding: 15px 20px;
+	background: $white;
+	@include roundedCorners(4);
+	border: 0;
+	box-shadow: 5px 5px 10px $card-shadow;
+	.account-settings-body {
+		padding: 2rem 0 0 0;
+	}
+	.account-settings-header {
+		.btn {
+			font-size: .9rem;
+			font-weight: 600;
+			margin: 0;
+			width: 100%;
+			padding: .4rem 0;
+			text-align: left;
+			display: flex;
+			align-items: center;
+			&:focus {
+				box-shadow: none;
+			}
+			.toggle-arrow {
+				margin: 0 0 0 auto;
+				width: 21px;
+				height: 21px;
+				@include roundedCorners(30);
+				background: url(../img/minus.svg) no-repeat;
+				background-size: 100%;
+			}
+			&.collapsed {
+				.toggle-arrow {
+					margin: 0 0 0 auto;
+					width: 21px;
+					height: 21px;
+					@include roundedCorners(30);
+					background: url(../img/plus.svg) no-repeat;
+					background-size: 100%;
+				}
+			}
+		}
+	}
+}
+
+
+// Upload Profile *************************
+.upload-profile {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	padding: 1rem;
+	margin: 0 0 1.5rem 0;
+	background: $white-pearl;
+	@include roundedCorners(2);
+	.upload-profile-image {
+		margin: 0 .7rem 0 0;
+		> img {
+			width: 60px;
+			height: 60px;
+			@include roundedCorners(100);
+		}
+	}
+	.field-wrapper {
+		margin: 0;
+	}
+}
+
+
+// Custom File *************************
+.custom-file {
+	min-height: 40px;
+	.custom-file-input {
+		padding: 10px 12px;
+		min-height: 40px;
+	}
+	.custom-file-label {
+		border: 1px solid $form-border;
+		min-height: 40px;
+		line-height: 26px;
+		color: $font-color;
+		@include roundedCorners(2);
+		&::after {
+			min-height: 38px;
+			background: $light-bg;
+    	padding: 10px 12px;
+    	@include roundedCorners(2);
+		}
+	}
+}
+
+
+// Custom Form Fields *************************
+.field-wrapper-group {
+	display: flex;
+	.field-wrapper {
+		margin: 0 5px 0 0;
+		flex: 1;
+	}
+}
+.field-wrapper {
+	position: relative;
+	margin-bottom: 25px;
+	.field-placeholder {
+		position: absolute;
+		box-sizing: border-box;
+		color: $primary-bg;
+		background: $white;
+		@include roundedCorners(30);
+		font-size: .7rem;
+		font-weight: 600;
+		top: -12px;
+		left: 12px;
+		padding: 2px 10px;
+		z-index: 1;
+		text-align: left;
+	}
+	input, select, textarea {
+		border: 1px solid $form-border;
+		padding: 10px 12px;
+		@include roundedCorners(2);
+		width: 100%;
+		min-height: 36px;
+	}
+	input:hover, textarea:hover {
+		border: 1px solid $primary-bg;
+	}
+	input:focus, textarea:focus {
+		outline-color: $primary-bg;
+	}
+}
+.field-wrapper-group {
+	display: flex;
+	.field-wrapper {
+		flex: 1;
+		margin-right: 5px;
+	}
+	.btn img {
+		margin: 0;
+	}
+}
+
+
+// Custom Switch
+.custom-switch {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0;
+	margin: 5px 0;
+	.custom-switch-label {
+		font-size: .8rem;
+		font-weight: 400;
+	}
+	.custom-control-input {
+		left: initial;
+		right: 0;
+	}
+	.custom-control-label::before {
+    left: -1.75rem;
+    top: 0;
+  }
+  .custom-control-label::after {
+  	top: 2px;
+    left: calc(-1.75rem + 2px);
+  }
+  .custom-control-input:checked~.custom-control-label::before {
+  	border-color: $green;
+    background-color: $green;
+  }
+  .custom-control-input:focus~.custom-control-label::before {
+  	box-shadow: 0 0 0 0.2rem rgba(4, 165, 61, .25);
+  }
+}
+
+
+// Group Container *************************
+.group-container {
+	margin: 0 20px 1.5rem 20px;
+	padding: 15px 20px;
+	background: $white;
+	@include roundedCorners(4);
+	border: 0;
+	box-shadow: 5px 5px 10px $card-shadow;
+	> h5 {
+		font-weight: 600;
+		font-size: 1rem;
+		margin: 0 0 10px 0;
+	}
+	.create-group {
+		padding: 1rem;
+		background: $white-pearl;
+		@include roundedCorners(2);
+	}
+}
+.group-chat-list {
+	padding: 25px 20px 15px 20px;
+	> ul.group-chat-cards {
+		margin: 0 0 10px 0;		
+		li {
+			margin-bottom: 30px;
+			a {
+				padding: 15px;
+				@include roundedCorners(4);
+				display: flex;
+				flex-direction: column;
+				background: $white;
+				box-shadow: 5px 5px 10px $card-shadow;
+				position: relative;
+				> .group-avatar {
+					position: relative;
+					margin: -36px 0 10px 0;
+					width: 40px;
+					height: 40px;
+					img {
+						@include roundedCorners(50);
+						width: 40px;
+						height: 40px;
+					}
+				}
+				> h5 {
+					font-size: 13px;
+					margin: 0 10px 10px 0;
+					font-weight: 600;
+					color: $font-color-light;
+				}
+				.group-chat-actions {
+					position: absolute;
+					right: 10px;
+					top: 10px;
+					button {
+						border: 0;
+						background: transparent;
+						opacity: 0.5;
+						@include transition(all, 0.5s, ease-in-out);
+						&:hover {
+							opacity: 1
+						}
+					}
+					.edit-group {
+						position: absolute;
+						top: 15px;
+						right: 0;
+						img {
+							width: 21px;
+							height: 21px;
+						}
+					}
+					.delete-group {
+						position: absolute;
+						top: 45px;
+						right: 0;
+						img {
+							width: 21px;
+							height: 21px;
+						}
+					}
+				}
+				&:hover {
+					box-shadow: 8px 8px 20px $card-shadow;
+				}
+			}
+		}
+	}
+}
+
+
+// Stacked Images *************************
+.stacked-images {
+	display: flex;
+	margin: .3rem 0 0 0;
+	img {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		@include roundedCorners(50);
+		width: 24px;
+		height: 24px;
+		overflow: hidden;
+		margin-right: -10px;
+		border: 1px solid $white;
+		background: $light-bg;
+		letter-spacing: .03rem;
+	}
+	.plus {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		@include roundedCorners(50);
+		width: 24px;
+		height: 24px;
+		overflow: hidden;
+		margin-right: -10px;
+		border: 1px solid $white;
+		background: $primary-bg;
+		color: $white;
+		letter-spacing: .03rem;
+		font-weight: 700;
+		font-size: .65rem;
+	}
+}
+
+
+// Stacked Images *************************
+.stacked-users-group {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 1rem 0 0 0;
+	.stacked-user {
+		position: relative;
+		margin: 7px;
+		img {
+			@include roundedCorners(50);
+			width: 48px;
+			height: 48px;
+		}
+		.delete-user {
+			position: absolute;
+			top: 0;
+			right: 0;
+			@include roundedCorners(50);
+			width: 16px;
+			height: 16px;
+			background: $red;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			> img {
+				width: 8px;
+				height: 8px;
+			}
+		}
+	}
+}
+
+
+// Contacts Container *************************
+.contacts-container {
+	min-height: calc(100vh - 250px);
+	ul.contacts-list {
+		margin: 10px 0 0 0;
+		padding: 0;
+		list-style-type: none;			
+		li {
+			border-bottom: 1px solid $border-bg-dark;
+			a {
+				padding: 15px 20px;
+				display: flex;
+				align-items: center;
+				flex-direction: row;
+				.contacts-avatar {
+					margin: 0 1rem 0 0;
+					position: relative;
+					width: 46px;
+					height: 46px;
+					.status {
+						position: absolute;
+						bottom: 0px;
+						right: 0px;
+						@include roundedCorners(30);
+						width: 14px;
+						height: 14px;
+						border: 2px solid $white;
+						&.online {
+							background: $green;
+						}
+						&.busy {
+							background: $red;
+						}
+						&.away {
+							background: $yellow;
+						}
+						&.offline {
+							background: $dark-bg;
+						}
+					}
+					img {
+						@include roundedCorners(50);
+						width: 46px;
+						height: 46px;
+					}
+					.contacts-bg-avatar {
+						width: 46px;
+						height: 46px;
+						@include roundedCorners(50);
+						font-size: 14px;
+						font-weight: 600;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						&.blue {
+							background: $light-blue;
+							color: $dark-blue;
+						}
+						&.yellow {
+							background: $light-yellow;
+							color: $dark-yellow;
+						}
+						&.red {
+							background: $light-red;
+							color: $dark-red;
+						}
+						&.green {
+							background: $light-green;
+							color: $dark-green;
+						}
+						&.pink {
+							background: $light-pink;
+							color: $dark-pink;
+						}
+						&.orange {
+							background: $light-orange;
+							color: $dark-orange;
+						}
+						&.violet {
+							background: $light-violet;
+							color: $dark-violet;
+						}
+						&.brown {
+							background: $light-brown;
+							color: $dark-brown;
+						}
+					}
+				}
+				.contacts-list-body {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					flex: 1;
+					.contacts-msg {
+						flex: 1;
+						max-width: 210px;
+						> h6 {
+							margin: 0;
+						}
+						> p {
+							margin: 0;
+							line-height: 200%;
+							font-size: .775rem;
+							color: $font-color-light;
+						}
+					}
+				}
+				.contacts-list-actions {
+					position: relative;
+					.action-block {						
+						> img {
+							width: 14px;
+							height: 14px;
+						}
+					}
+					.action-list {
+						display: none;
+						background: $primary-bg;
+						@include roundedCorners(5);
+						padding: 5px 0;
+						position: absolute;
+						right: 20px;
+						top: -15px;
+						min-width: 100px;
+						&:after {
+							position: absolute;
+							right: -8px;
+							top: 16px;
+							content: '';
+							border-left: 10px solid $primary-bg;
+							border-top: 10px solid transparent;
+							border-bottom: 10px solid transparent;
+						}
+						.action-list-item {
+							display: flex;
+							padding: 3px 10px;
+							font-size: .7rem;
+							color: $white;
+							&:hover {
+								background: darken($primary-bg, 5%);
+							}
+						}
+					}
+					&:hover .action-list {
+						display: block;
+					}
+				}
+				&:hover {
+					@include transition(all, 0.5s, ease);
+					color: $font-color;
+					background: $chat-hover;
+				}
+			}
+		}
+	}
+}
+
+
+
+// Invite Friend Block *************************
+.invite-friend-block {
+	margin: 1.5rem 20px 1rem 20px;
+	padding: 15px;
+	background: $white;
+	@include roundedCorners(4);
+	border: 0;
+	box-shadow: 5px 5px 10px $card-shadow;
+}
+
+
+
+
+
+/************************************************
+	************************************************
+								Authentication CSS
+	************************************************
+************************************************/
+.login-container {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	.login-about {
+		height: 100%;	
+		background: $primary-bg;
+		position: relative;
+		padding: 3rem 3rem;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		color: $white;
+		.slogan {
+			display: flex;
+			flex-direction: column;
+			font-weight: 300;
+			text-transform: uppercase;
+			position: relative;			
+			span {
+				font-size: 4rem;
+				line-height: 120%;
+				&:first-child {
+					font-size: 4.5rem;
+				}
+				&:last-child {
+					font-size: 2.2rem;
+				}
+			}
+		}
+		> .about-desc {
+			margin: 2rem 0;
+			font-size: .85rem;
+			max-width: 75%;
+			line-height: 200%;
+			font-weight: 300;
+		}
+		> .know-more {
+			margin: 0;
+			text-transform: uppercase;
+			font-size: .7rem;
+			font-weight: 700;
+			color: $white;
+			display: flex;
+			align-items: center;
+			max-width: 180px;
+			@include transition(all, 0.5s, ease-in-out);
+			img {
+				width: 36px;
+				height: 36px;
+				margin: 0 0 0 .5rem;
+				@include transition(all, 0.5s, ease-in-out);
+			}
+			&:hover {
+				font-size: 1rem;
+				img {
+					margin: 0 0 0 1rem;
+				}
+			}
+		}
+	}
+	.login-wrapper {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+	}
+}
+@media screen and (max-width: 992px) {
+	.login-container {
+		.login-about {
+			display: none;
+		}
+	}
+}
+.login-screen {
+	position: relative;
+	background: $white;
+	border: 1px solid $border-bg;
+	@include roundedCorners(20);
+	box-shadow: 0 30px 15px -20px rgba(0, 0, 0, 0.2);
+	min-width: 320px;
+	max-width: 320px;
+	.login-logo {
+		margin: 0 0 1rem 0;
+		display: flex;
+		z-index: 100;
+		img {
+			width: 50px;
+			height: 50px;
+		}
+	}
+	.login-body {
+		padding: 1.5rem 1.5rem 0 1.5rem;
+	}
+	.login-footer {
+		border-top: 1px solid $border-bg;
+		padding: 1rem 1.5rem 1rem 1.5rem;
+	}
+	// Actions
+	.actions {
+		display: flex;
+		margin-bottom: 1rem;
+		justify-content: space-between;
+    align-items: center;
+		a {
+			color: $font-color-light;
+			font-size: .7rem;
+			line-height: 200%;
+			border-bottom: 1px dashed !important;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	.additional-link {
+		text-decoration: none;
+		margin: 0 auto;
+		display: inline-block;
+		color: lighten($black, 60%);
+		a {
+			margin-left: 5px;
+			display: inline-block;
+		}
+	}
+	h6 {
+		font-size: .875rem;
+		margin-bottom: 2rem;
+		line-height: 160%;
+		font-weight: 300;
+	}
+}
+
+
+
+
+
+/***********************
+	***********************
+					Plugins
+	***********************
+***********************/
+
+
+.slimScrollBar {
+	opacity: .3 !important;
+}
+.slimScrollDiv:hover {
+	.slimScrollBar {
+		@include roundedCorners(30);
+		opacity: .5 !important;
+	}
+}
+
+
+
+/************************************************
+	************************************************
+							Bootstrap Overwrite Css							
+	************************************************
+************************************************/
+
+
+
+// Buttons *************************
+button {
+	&:focus {
+		outline: none;
+	}
+}
+.btn {
+	@include roundedCorners(2);
+	border: 1px solid transparent;
+	font-size: .825rem;
+	font-weight: 700;
+	padding: .594rem .75rem;
+	i {
+		vertical-align: middle;
+		font-size: 1rem;
+		margin: 0 3px 0 0;
+	}
+}
+
+
+
+// Button Primary
+.btn-primary {
+	color: $primary-color;
+	background-color: $primary-bg;
+	border-color: $primary-bg;
+	&:hover {
+		color: $primary-color;
+		background-color: darken($primary-bg, 5%);
+		border-color: darken($primary-bg, 5%);
+	}
+	&:focus, &.focus {
+		box-shadow: 0 0 0 0.2rem rgb(228, 240, 255);
+		background-color: darken($primary-bg, 5%);
+		border-color: darken($primary-bg, 5%);
+	}
+	&.disabled, &:disabled {
+		color: $primary-color;
+		background-color: $primary-bg;
+		border-color: $primary-bg;
+	}
+	&:not(:disabled):not(.disabled) {
+		&:active, &.active {
+			color: $primary-color;
+			background-color: darken($primary-bg, 5%);
+			border-color: darken($primary-bg, 5%);
+		}
+	}
+}
+.show > .btn-primary.dropdown-toggle {
+	color: $primary-color;
+	background-color: darken($primary-bg, 5%);
+	border-color: darken($primary-bg, 5%);
+}
+.btn-primary:not(:disabled):not(.disabled) {
+	&:active:focus, &.active:focus {
+		box-shadow: 0 0 0 0.2rem rgb(228, 240, 255);
+	}
+}
+.show > .btn-primary.dropdown-toggle:focus {
+	box-shadow: 0 0 0 0.2rem rgb(228, 240, 255);
+}
+
+
+
+// Button Secondary
+.btn-secondary {
+	color: $secondary-color;
+	background-color: $secondary-bg;
+	border-color: $secondary-bg;
+	&:hover {
+		color: $secondary-color;
+		background-color: darken($secondary-bg, 5%);
+		border-color: darken($secondary-bg, 5%);
+	}
+	&:focus, &.focus {
+		color: $secondary-color;
+		box-shadow: 0 0 0 0.2rem rgba(160, 172, 189, 0.3);
+		background-color: darken($secondary-bg, 5%);
+		border-color: darken($secondary-bg, 5%);
+	}
+	&.disabled, &:disabled {
+		color: $secondary-color;
+		background-color: $secondary-bg;
+		border-color: $secondary-bg;
+	}
+	&:not(:disabled):not(.disabled) {
+		&:active, &.active {
+			color: $secondary-color;
+			background-color: darken($secondary-bg, 5%);
+			border-color: darken($secondary-bg, 5%);
+		}
+	}
+}
+.show > .btn-secondary.dropdown-toggle {
+	color: $secondary-color;
+	background-color: darken($secondary-bg, 5%);
+	border-color: darken($secondary-bg, 5%);
+}
+.btn-secondary:not(:disabled):not(.disabled) {
+	&:active:focus, &.active:focus {
+		box-shadow: 0 0 0 0.2rem rgba(160, 172, 189, 0.3);
+	}
+}
+.show > .btn-secondary.dropdown-toggle:focus {
+	box-shadow: 0 0 0 0.2rem rgba(160, 172, 189, 0.3);
+}
+
+
+
+// Button Danger
+.btn-danger {
+	color: $white;
+	background-color: $red;
+	border-color: $red;
+	&:hover {
+		color: $white;
+		background-color: darken($red, 5%);
+		border-color: darken($red, 5%);
+	}
+	&:focus, &.focus {
+		box-shadow: 0 0 0 0.2rem rgb(228, 240, 255);
+		background-color: darken($red, 5%);
+		border-color: darken($red, 5%);
+	}
+	&.disabled, &:disabled {
+		color: $white;
+		background-color: $red;
+		border-color: $red;
+	}
+	&:not(:disabled):not(.disabled) {
+		&:active, &.active {
+			color: $white;
+			background-color: darken($red, 5%);
+			border-color: darken($red, 5%);
+		}
+	}
+}
+.show > .btn-danger.dropdown-toggle {
+	color: $white;
+	background-color: darken($red, 5%);
+	border-color: darken($red, 5%);
+}
+.btn-danger:not(:disabled):not(.disabled) {
+	&:active:focus, &.active:focus {
+		box-shadow: 0 0 0 0.2rem rgb(228, 240, 255);
+	}
+}
+.show > .btn-danger.dropdown-toggle:focus {
+	box-shadow: 0 0 0 0.2rem rgb(228, 240, 255);
+}
+
+
+
+// Button Success
+.btn-success {
+	color: $white;
+	background-color: $green;
+	border-color: $green;
+	&:hover {
+		color: $white;
+		background-color: darken($green, 5%);
+		border-color: darken($green, 5%);
+	}
+	&:focus, &.focus {
+		box-shadow: 0 0 0 0.2rem rgb(228, 240, 255);
+		background-color: darken($green, 5%);
+		border-color: darken($green, 5%);
+	}
+	&.disabled, &:disabled {
+		color: $white;
+		background-color: $green;
+		border-color: $green;
+	}
+	&:not(:disabled):not(.disabled) {
+		&:active, &.active {
+			color: $white;
+			background-color: darken($green, 5%);
+			border-color: darken($green, 5%);
+		}
+	}
+}
+.show > .btn-success.dropdown-toggle {
+	color: $white;
+	background-color: darken($green, 5%);
+	border-color: darken($green, 5%);
+}
+.btn-success:not(:disabled):not(.disabled) {
+	&:active:focus, &.active:focus {
+		box-shadow: 0 0 0 0.2rem rgb(228, 240, 255);
+	}
+}
+.show > .btn-success.dropdown-toggle:focus {
+	box-shadow: 0 0 0 0.2rem rgb(228, 240, 255);
+}
+
+
+
+// Forms *************************
+.form-group {
+	margin: 0 0 1rem 0;
+}
+.form-control {
+	border: 1px solid $form-border;
+	@include roundedCorners(2);
+	font-size: .825rem;
+	&:hover {
+		border: 1px solid $primary-bg;
+	}
+	&:focus {
+		border-color: $primary-bg;
+		box-shadow: none;
+		outline: auto !important;
+		outline-color: $primary-bg !important;
+	}
+}
+.input-group-text {
+	border: 0;
+	@include roundedCorners(2);
+	font-size: .825rem;	
+}
+label {
+	margin-bottom: .3rem;
+	font-size: .8rem;
+	font-weight: 600;
+}
+
+
+
+// List Group *************************
+.list-group {
+	margin-bottom: 2rem;
+	background: $white;
+	border: 0;
+	@include roundedCorners(2);
+	margin-bottom: 1rem;
+	.list-group-item {
+		font-size: .825rem;
+		padding: .5rem .75rem;
+		border: 1px solid $border-bg;
+		&:first-child {
+			@include roundedCornersAll(2px, 2px, 0, 0);
+		}
+		&:last-child {
+			@include roundedCornersAll(0, 0, 2px, 2px);
+		}
+	}
+}
+.list-group-item + .list-group-item {
+	border-top-width: 0 !important;
+}
+
+
+// Modal *************************
+.modal {
+	text-align: left;	
+	.modal-content {
+		@include roundedCorners(20);
+		border: 0;
+	}
+	.modal-dialog {
+		margin-top: 5rem;
+		&.modal-dialog-centered {
+			margin: 0 auto;
+		}
+	}
+	.modal-header {
+		background: $primary-bg;
+		color: $white;
+		border: 0;
+		@include roundedCornersAll(20px, 20px, 0, 0);
+	}
+	.modal-footer {
+		border-top: 1px solid $border-bg;
+		&.custom {
+			padding: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			.left-side, .right-side {
+				width: 48%;
+				margin: 0;
+			}
+			.divider {
+				background-color: $border-bg;
+				width: 1px;
+				height: 60px;
+				margin: 0;
+			}
+			.btn-link {
+				padding: 1rem;
+				font-size: .9rem;
+				text-transform: uppercase;
+				font-weight: 700;
+				color: $font-color;
+			}
+		}
+	}
+}
+.modal-backdrop {
+	&.show {
+		opacity: 0.8;
+	}
+}
+.close {
+	color: $white;
+	text-shadow: 0 1px 0 $black;
+	&:hover {
+		color: $white;
+	}
+}
+
+
+
+// Tootltips *************************
+.tooltip {
+	font-size: .7rem;
+}
+.tooltip-inner {
+	@include roundedCorners(0);
+}
+
+
+
+// Row Gutters *************************
+.gutters {
+	margin-right: -10px;
+	margin-left: -10px;
+}
+.gutters > .col,
+.gutters > [class*="col-"] {
+	padding-right: 10px;
+	padding-left: 10px;
+}

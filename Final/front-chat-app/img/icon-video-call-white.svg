@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" version="1.1" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g>
+<g xmlns="http://www.w3.org/2000/svg">
+	<g>
+		<path d="M354,184.639V139c0-33.084-26.916-60-60-60H60c-33.084,0-60,26.916-60,60v234c0,33.084,26.916,60,60,60h234    c33.084,0,60-26.916,60-60v-44.639l158,79V105.639L354,184.639z M314,373c0,11.028-8.972,20-20,20H60c-11.028,0-20-8.972-20-20    V139c0-11.028,8.972-20,20-20h234c11.028,0,20,8.972,20,20V373z M472,342.639l-118-59v-54.278l118-59V342.639z" fill="#ffffff" data-original="#ffffff" style="" class=""/>
+	</g>
+</g>
+</g></svg>

@@ -1,0 +1,145 @@
+// White Shades
+$white: #ffffff;
+$white-pearl: #f2f4f9;
+
+// Black Shades
+$black: #000000;
+
+// Font Colors
+$font-color: #111111;
+$font-color-light: #8796af;
+
+// Light, Dark Colors
+$light-color: #f5f8fd;
+$dark-color: #212c3a;
+
+// Body Colors
+$light-bg: #f2f4f9;
+$dark-bg: #a6b2c5;
+
+// Border Colors
+$border-bg: #e1e8f3;
+$border-bg-dark: #eaeef7;
+$border-bg-light: #f2f4f9;
+
+// Forms
+$form-border: #d8def0;
+
+// Primary, Secondary Colors
+$primary-bg-dark: #0d40a9;
+$primary-bg: #1273eb;
+$primary-color: #ffffff;
+$primary-light: #e0f1ff;
+$secondary-bg: #545f6b;
+$secondary-color: #ffffff;
+
+// Cards
+$card-shadow: #eaeef7;
+
+// Page Content
+$page-content-bg: #ffffff;
+
+// Sidebar Color
+$sidebar-bg: #ffffff;
+$sidebar-hover-bg: #f1f4f9;
+$sidebar-active-bg: #e5f0ff;
+
+// Tab Content Color
+$tab-content-bg: #f5f8fd;
+
+// Chat Active Colors
+$chat-active: #ebf0f9;
+$chat-hover: #f0f4fb;
+
+// Navbar Color
+$nav-tooltip-bg: #000000;
+$nav-tooltip-text: #ffffff;
+
+// Colors
+$red: #ea490b;
+$light-red: #ffdbdb;
+$dark-red: #de3e3e;
+$green: #04a53d;
+$light-green: #d8eccb;
+$dark-green: #70ad46;
+$peacock-green: #83d050;
+$yellow: #eba811;
+$light-yellow: #f7e6b5;
+$dark-yellow: #cc9a09;
+$blue: #1273eb;
+$light-blue: #d5eafd;
+$dark-blue: #2d8dec;
+$pink: #e75b62;
+$light-pink: #ffe2e7;
+$dark-pink: #e24f69;
+$peach: #e75b62;
+$maroon: #8f4a6e;
+$orange: #f36311;
+$light-orange: #fde8d9;
+$dark-orange: #e6680e;
+$violet: #62199a;
+$light-violet: #f2e2ff;
+$dark-violet: #8936ca;
+$purple: #c22dfe;
+$brown: #b36135;
+$light-brown: #e8dad7;
+$dark-brown: #a7644a;
+
+
+
+/*************** 2.Mixins ***************/
+
+// Transition
+@mixin transition($transition-property, $transition-time, $method) {
+	-webkit-transition: $transition-property $transition-time $method;
+	-moz-transition: $transition-property $transition-time $method;
+	-ms-transition: $transition-property $transition-time $method;
+	-o-transition: $transition-property $transition-time $method;
+	transition: $transition-property $transition-time $method;
+}
+
+// Box Sizing
+@mixin box-sizing($string){
+	-webkit-box-sizing: $string;
+	-moz-box-sizing: $string;
+	box-sizing: $string;
+}
+
+// Box Shadow
+@mixin box-shadow($off-y, $off-x, $blur, $color){
+	-moz-box-shadow: $off-y $off-x $blur $color; /* FF3.5+ */
+	-webkit-box-shadow: $off-y $off-x $blur $color; /* Saf3.0+, Chrome */
+	box-shadow: $off-y $off-x $blur $color; /* Opera 10.5, IE9 */
+}
+@mixin box-shadow-inset($top, $left, $blur, $color, $inset:"") {
+	-webkit-box-shadow: $top $left $blur $color $inset;
+	-moz-box-shadow: $top $left $blur $color $inset;
+	box-shadow: $top $left $blur $color $inset;
+}
+
+// Border Radius
+@mixin roundedCorners($size) {
+	-webkit-border-radius: $size + px;
+	-moz-border-radius: $size + px;
+	border-radius: $size + px;
+}
+@mixin roundedCornersAll($size1, $size2, $size3, $size4) {
+	-webkit-border-radius: $size1 $size2 $size3 $size4;
+	-moz-border-radius: $size1 $size2 $size3 $size4;
+	border-radius: $size1 $size2 $size3 $size4;
+}
+
+// Transform
+@mixin transform($args){
+	-webkit-transform: $args;
+	-moz-transform: $args;
+	-o-transform: $args;
+	-ms-transform: $args;
+	transform: $args;
+}
+
+// Opacity
+@mixin opacity($opacity) {
+	opacity: $opacity / 100;
+	filter: alpha(opacity=$opacity);
+}
