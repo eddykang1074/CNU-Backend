@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채팅방에 접속한 모든 그룹 사용자간 채팅</title>
+</head>
+<body>
+    <h1>채팅방 기준 그룹 사용자간 채팅</h1>
+    STEP1:채팅방을 개설하고 닉네임을 입력 입장한다<br/>
+    STEP2:채팅방에서 사용자간 채팅을 진행한다.<br/><br/>
+
+    닉네임: <input type="text" id="nickname"/> <br/>
+    채팅방명:<input type="text" id="channel"/>
+    <button id="btnEntry">입장</button>
+    <button id="btnExit">퇴장</button>
+    <br/><br/>
+    
+
+    메시지: <input type="text" id="message"/> <br/>
+    <button id="btnSend">전송</button>
+
+    <!-- 채팅 수신 이력 표시영역 -->
+    <ul id="chatHistory">
+ 
+    </ul>
+
+
+    <!-- 클라이언트 코딩을 위한 jquery cdn 라이브러리 참조  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <!-- socket.io javascript client library 참조  -->
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" crossorigin="anonymous"></script>
+
+
+
+    <!-- 아래부분이 프론트엔드 코딩영역입니다.웹브라우저에서 실행됩니다. -->
+    <script>
+        //클라이언트(웹브라우저) 서버 연결 소켓 객체 정의 
+        //서버소켓과 연결을 시도하고 연결이 완료되면 연결이 지속된다.
+        //io.connect('/')를 통해 서버소켓과 연결을 완료하고
+        //서버로 메시지를 보낼 socket객체가 반환됩니다.
+        var socket = io.connect('http://localhost:5000/');
+        
+
+        //jquery에서 html요소의 id값으로 html요소를 찾는다 $("#html요소의id값")
+        //전송버튼이 클릭되면 서버로 사용자 메시지를 전송한다.
+        $("#btnSend").click(function(){
+            //socket.emit('서버 이벤트 수신기명','서버로 보낼 전송데이터');
+            //사용자 닉네임 과 메시지 입력값을 추출합니다.
+            //$("#html요소의id값으로 해당요소를 검색")
+            var nickName = $("#nickname").val();
+            var message = $("#message").val();
+
+            var msgData = {
+                channel:$("#channel").val(),
+                nickName:nickName,
+                message:message
+            };
+
+            //서버소켓의 그룹채팅 메시지 수신기를 호출합니다.
+            socket.emit('channelMsg',msgData);
+        });
+
+
+        //서버에서 보내준 메시지를 수신하는 수신기 정의하기 
+        //클라이언트 이벤트 메시지 수신기 정의하기
+        socket.on('receiveAll',function(serverMsg){
+            //서버에서 보내준 메시지 문자열을 포함한 li태그를 하나만들고
+            //ul태그에 li태그를 추가한다.(append())
+            $("#chatHistory").append(`<li>${serverMsg}</li>`);
+        });
+
+        
+        //그룹채팅 서버메시지 수신기 정의 
+        socket.on('receiveChannel',function(serverMsg){
+            //서버에서 보내준 메시지 문자열을 포함한 li태그를 하나만들고
+            //ul태그에 li태그를 추가한다.(append())
+            $("#chatHistory").append(`<li>${serverMsg}</li>`);
+        });
+
+
+
+        //입장 버튼 클릭시 입력한 채팅방(채널)에 특정 닉네임으로 입장하기 
+        $("#btnEntry").click(function(){
+
+            //채널명과 닉네임을 UI요소에서 추출한다.
+            const channel = $("#channel").val();
+            const nickName = $("#nickname").val();
+
+            //서버소켓의 entry라는 이벤트를 호출한다.
+            //채널명과 대화명을 파라메터로 전달한다.
+            //socket.emit('서버 소켓 이벤트 수신기명',전달할 데이터....);
+            socket.emit('entry',channel,nickName);
+
+        });
+
+
+        //현재 채널(채팅방) 퇴장하기
+        $("#btnExit").click(function(){
+            const channel = $("#channel").val();
+            const nickName = $("#nickname").val();
+            socket.emit('exit',channel,nickName);
+        });
+
+        
+        //채팅방 퇴장완료 메시지 수신기 
+        socket.on('exitOk',function(exitMsg){
+            $("#chatHistory").append(`<li>${exitMsg}</li>`);
+        });
+        
+
+
+        //채팅방 입장 완료후 입장완료 메시지 수신기 기능구현
+        socket.on('entryOk',function(entryMsg){
+            $("#chatHistory").append(`<li>${entryMsg}</li>`);
+        });
+
+
+
+
+    </script>
+</body>
+</html>
