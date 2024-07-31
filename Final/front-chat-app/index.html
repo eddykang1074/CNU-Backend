@@ -1463,142 +1463,9 @@
 					<!-- Chat Container Start -->
 					<div class="chat-container">
 						<div class="chatContainerScroll">
-							<ul class="chat-box">
-								<li class='chat-left'>
-									<div class='chat-avatar'>
-										<img src="img/user21.png" alt="Quick Chat Admin" />
-										<div class='chat-name'>Kyle</div>
-									</div>
-									<div class="chat-text-wrapper">
-										<div class='chat-text'>
-											<p>Hello, good morning.</p>
-											<div class='chat-hour read'>08:55 <span>&#10003;</span></div>
-										</div>
-									</div>
-								</li>
-								<li class='chat-right'>
-									<div class="chat-text-wrapper">
-										<div class='chat-text'>
-											<p>Hi Kyle<br />
-											Good morning 😃. How are you?</p>
-											<div class='chat-hour read'>08:56 <span>&#10003;</span></div>
-										</div>
-									</div>
-									<div class='chat-avatar'>
-										<img src="img/user24.png" alt="Quick Chat Admin" />
-										<div class='chat-name'>Amy</div>
-									</div>
-								</li>
-								<li class="divider">Feb 18, 2021</li>
-								<li class='chat-left'>
-									<div class='chat-avatar'>
-										<img src="img/user21.png" alt="Quick Chat Admin" />
-										<div class='chat-name'>Kyle</div>
-									</div>
-									<div class="chat-text-wrapper">
-										<div class='chat-text'>
-											<p>Are we meeting today 😊😊</p>
-											<div class='chat-hour read'>08:57 <span>&#10003;</span></div>
-										</div>
-									</div>
-								</li>
-								<li class='chat-right'>
-									<div class="chat-text-wrapper">
-										<div class='chat-text'>
-											<p>Well, that's great 😃</p>
-											<div class='chat-hour read'>08:59 <span>&#10003;</span></div>
-										</div>
-										<div class='chat-text'>
-											<div class="shared-files">
-												<a href="#" class="shared-files">
-													<div class="attached-folder">
-														<img src="img/folder.svg" alt="Folder" />
-													</div>
-													<div class="attached-link">new-design.zip</div>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class='chat-avatar'>
-										<img src="img/user24.png" alt="Quick Chat Admin" />
-										<div class='chat-name'>Amy</div>
-									</div>
-								</li>
-								<li class="divider">Feb 21, 2021</li>
-								<li class='chat-left'>
-									<div class='chat-avatar'>
-										<img src="img/user21.png" alt="Quick Chat Admin" />
-										<div class='chat-name'>Kyle</div>
-									</div>
-									<div class="chat-text-wrapper">
-										<div class='chat-text'>
-											<p>The rest of the team is not here yet.<br />Maybe in an hour or so?</p>
-											<div class='chat-hour read'>08:57 <span>&#10003;</span></div>
-										</div>
-									</div>
-								</li>
-								<li class='chat-right'>
-									<div class="chat-text-wrapper">
-										<div class='chat-text'>
-											<p>Have you faced any problems at the last phase of the project?</p>
-											<div class='chat-hour read'>08:59 <span>&#10003;</span></div>
-										</div>
-										<div class='chat-text'>
-											<p>Lets discuss.</p>
-											<div class='chat-hour read'>09:00 <span>&#10003;</span></div>
-										</div>
-									</div>
-									<div class='chat-avatar'>
-										<img src="img/user24.png" alt="Quick Chat Admin" />
-										<div class='chat-name'>Amy</div>
-									</div>
-								</li>
-								<li class="divider">Feb 25, 2021</li>
-								<li class='chat-left'>
-									<div class='chat-avatar'>
-										<img src="img/user21.png" alt="Quick Chat Admin" />
-										<div class='chat-name'>Kyle</div>
-									</div>
-									<div class="chat-text-wrapper">
-										<div class='chat-text'>
-											<p>Actually everything was fine.<br />I'm very excited to show this to our team.</p>
-											<div class='chat-hour read'>07:00 <span>&#10003;</span></div>
-										</div>
-									</div>
-								</li>
-								<li class='chat-right'>
-									<div class="chat-text-wrapper">
-										<div class='chat-text'>
-											<p>From next week I am going to work on new and exiting project.</p>
-											<div class='chat-hour read'>07:01 <span>&#10003;</span></div>
-										</div>
-									</div>
-									<div class='chat-avatar'>
-										<img src="img/user24.png" alt="Quick Chat Admin" />
-										<div class='chat-name'>Amy</div>
-									</div>
-								</li>
-								<li class='chat-left'>
-									<div class='chat-avatar'>
-										<img src="img/user21.png" alt="Quick Chat Admin" />
-										<div class='chat-name'>Kyle</div>
-									</div>
-									<div class="chat-text-wrapper">
-										<div class='chat-text'>
-											<div class="chat-img-thumbnail">
-												<img src="img/img1.jpeg" class="img-fluid chat-thumbnail" alt="Quick Chat Admin" />
-												<a href="#" class="download">
-													<img src="img/download.svg" alt="Download" />
-												</a>
-											</div>
-											<div class='chat-hour'>07:02 <span>&#10003;</span></div>
-										</div>
-										<div class='chat-text'>
-											<p>Great. Thanks 😊😊</p>
-											<div class='chat-hour'>07:03 <span>&#10003;</span></div>
-										</div>
-									</div>
-								</li>
+
+							<!-- 채팅이력 표시영역 -->
+							<ul id="chatHistory" class="chat-box">
 							</ul>
 						</div>						
 					</div>
@@ -1606,9 +1473,13 @@
 
 					<!-- Chat form start -->
 					<div class="chat-form">
+						
+						<!-- 사용자 메시지 입력영역 -->
 						<div class="form-group">
-							<textarea class="form-control" placeholder="Type your message here..."></textarea>
+							<textarea id="message" class="form-control" placeholder="Type your message here..."></textarea>
 						</div>
+
+
 						<div class="chat-form-actions">
 							<a href="#" class="action-icon">
 								<img src="img/emoji.svg" alt="Emoji">
@@ -1657,7 +1528,9 @@
 								<span class="action-icon-tooltip">Attach</span>
 							</a>
 						</div>
-						<button class="btn btn-primary">
+
+						<!-- 메시지 전송버튼 -->
+						<button class="btn btn-primary" id="btnSend">
 							<img src="img/send1.svg" alt="Send">
 						</button>
 					</div>
@@ -1934,6 +1807,101 @@
 
 		<!-- Main Js Required -->
 		<script src="js/main.js"></script>
+
+
+
+   		<!-- socket.io javascript client library 참조  -->
+    	<script src="https://cdn.socket.io/4.4.1/socket.io.min.js" crossorigin="anonymous"></script>
+
+		<script>
+
+			//현재 URL에서(/front/modify.html?id=1) 쿼리스트링 키명으로 값을 추출하는 클라이언트 자바스크립트 함수 
+			//정규식 문법을 이용한 키값추출하기 
+			function getQueryString(keyName){
+				var results = new RegExp('[\?&]'+keyName+'=([^&#]*)').exec(window.location.href);
+				if(results != null){
+					return results[1] || 0;
+				}
+				return results;
+			}
+
+			//현재 웹브라우저 주소창에 URL주소에서 nickname 키값을 추출하여
+			//전역변수 nickName 사용자 닉네임을 설정한다. 
+			var nickName = getQueryString("nickname");
+
+
+
+			//클라이언트(웹브라우저) 서버 연결 소켓 객체 정의 
+			//서버소켓과 연결을 시도하고 연결이 완료되면 연결이 지속된다.
+			//io.connect('/')를 통해 서버소켓과 연결을 완료하고
+			//서버로 메시지를 보낼 socket객체가 반환됩니다.
+			var socket = io.connect('http://localhost:5000/');
+	
+			//jquery에서 html요소의 id값으로 html요소를 찾는다 $("#html요소의id값")
+			//전송버튼이 클릭되면 서버로 사용자 메시지를 전송한다.
+			$("#btnSend").click(function(){
+				//socket.emit('서버 이벤트 수신기명','서버로 보낼 전송데이터');
+				//사용자 닉네임 과 메시지 입력값을 추출합니다.
+				//$("#html요소의id값으로 해당요소를 검색")
+				var message = $("#message").val();
+
+				socket.emit('sendAll',nickName,message);
+
+				//메시지 입력박스 초기화처리 
+				$("#message").val("");
+				$("#message").focus();
+			});
+	
+	
+			//서버에서 보내준 메시지를 수신하는 수신기 정의하기 
+			//클라이언트 이벤트 메시지 수신기 정의하기
+			socket.on('broadCastAll',function(sendName,message){
+
+				console.log("서버에서 전송해준 메시지 출력:",sendName,message);
+
+				let msgTemplate ='';
+				
+				//현재 로그인 사용자 닉네임과 메시지 발송자 닉네임이 같으면 오른쪽 영역에 메시시 추가
+				if(nickName == sendName){
+					msgTemplate = `<li class='chat-right'>
+									<div class="chat-text-wrapper">
+										<div class='chat-text'>
+											<p>${message}</p>
+											<div class='chat-hour read'>08:56 <span>&#10003;</span></div>
+										</div>
+									</div>
+									<div class='chat-avatar'>
+										<img src="img/user24.png" alt="Quick Chat Admin" />
+										<div class='chat-name'>${sendName}</div>
+									</div>
+								</li>`;
+				}else{
+					msgTemplate = `<li class='chat-left'>
+									<div class='chat-avatar'>
+										<img src="img/user21.png" alt="Quick Chat Admin" />
+										<div class='chat-name'>${sendName}</div>
+									</div>
+									<div class="chat-text-wrapper">
+										<div class='chat-text'>
+											<p>${message}</p>
+											<div class='chat-hour read'>08:55 <span>&#10003;</span></div>
+										</div>
+									</div>
+								</li>`;
+				}
+
+				//채팅이력에 수신 메시지 템플릿 추가하기 
+				$("#chatHistory").append(msgTemplate);
+			
+			});
+	
+	
+	
+	
+		</script>
+	
+	
+
 
 	</body>
 </html>

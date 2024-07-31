@@ -45,6 +45,12 @@ module.exports =(server)=>{
         });
 
 
+        //템플릿에서 보내온 메시지 수신처리기 
+        socket.on("sendAll",function(nickName,message){
+            io.emit("broadCastAll",nickName,message);
+        });
+
+
         //지정한 채팅방 개설 및 입장처리 메시지 이벤트 수신기 
         //socket.on('서버측이벤트 수신기명',콜백함수(){});
         socket.on('entry',async(channel,nickName)=>{
