@@ -501,7 +501,7 @@
 											<a class="dropdown-item offline" href="#">Offline</a>
 										</div>
 									</div>
-									<h5>Jennifer Lopezx</h5>
+									<h5 id="profile-name"></h5>
 									<h6>Bern, Switzerland</h6>
 								</div>
 								<!-- User profile end -->
@@ -1837,6 +1837,7 @@
 					dataType:"json",
 					success:function(result){
 						console.log("프로필 정보 확인하기:",result);
+						$("#profile-name").text(result.data.name);
 					},
 					error:function(err){
 						console.error("백엔드 API 호출에러 발생....");
