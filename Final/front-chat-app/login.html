@@ -119,7 +119,43 @@
 					return false;
 				}
 
-				
+				//Step2: 사용자 입력값을 UI요소에 추출해서 JSON데이터를 생성한다.
+				//백엔드에 전달할 신규회원정보 정의하기 
+				var member = {
+					email:$("#email").val(),
+					password:$("#password").val()
+				};
+
+
+				//Step3: UI요소에서 추출한 JSON데이터를 백엔드 RESTFul API에 전달해서 회원가입처리합니다.
+				//Jquery의 AJAX를 이용해 post방식으로 백엔드 API주소에 데이터를 전달한다.
+				$.post('http://localhost:5000/api/member/login',member).done(function(result){
+					//백엔드에서의 처리결과값 확인하기 
+					console.log("백엔드에서의 처리결과값 확인하기:",result);
+
+					if(result.code == 200){
+						//Step4: 백엔드에서 제공해준 JWT 토큰값 웹브라우저 로컬스토리지 공간에 저장하기
+							localStorage.setItem("chatMemberToken",result.data);
+
+							//index.html 채팅 웹페이지로 이동시키기
+							location.href="./index.html";
+					}else{
+
+						if(result.code == 400 && result.msg =="NotExistEmail"){
+							alert("이메일주소가 존재하지 않습니다.");
+							$("#email").val("");
+							$("#email").focus();
+						}else if(result.code == 400 && result.msg =="InCorrectPasword"){
+							alert("암호가 일치하지 않습니다.");
+							$("#password").val("");
+							$("#password").focus();
+						}else{
+							alert("로그인에 실패했습니다.\n 관리자에게 문의하세요.");
+						}
+						
+					}
+				});
+
 
 			});
 
