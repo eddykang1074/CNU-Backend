@@ -4,6 +4,9 @@
 var express = require('express');
 var router = express.Router();
 
+//사용자 암호 단방향 암호화 적용을 위해 encryptjs 참조하기
+var encrypt = require('bcryptjs');
+
 //ORM db객체 참조하기 
 var db = require('../models/index');
 
@@ -32,12 +35,15 @@ router.post('/entry',async(req,res)=>{
         const password = req.body.password;
         const name = req.body.name;
 
+        //사용자암호를 단방향 암호화 문자열로 변환하기
+        const encryptedPassword  = await encrypt.hash(password,12);
+
         //Step2: member 회원테이블에 데이터를 등록한다.
         //등록할 데이터의 구조(속성명)는 member모델의 속성명을 기준으로 작성합니다.
         //DB member 테이블에 저장할 신규 JSON 데이터를 생성합니다.(모델속성명기준-NotNull확인필요)
         const member = {
             email:email,
-            member_password:password,
+            member_password:encryptedPassword,
             name:name,
             profile_img_path:"/img/user.png",
             entry_type_code:0,
@@ -68,6 +74,69 @@ router.post('/entry',async(req,res)=>{
     //프론트엔드에 최종 처리결과 데이터를 반환한다.
     res.json(apiResult);
 });
+
+
+/*
+- 회원 로그인 데이터 처리 요청과 응답 라우팅메소드
+- 호출주소: http://localhost:5000/api/member/login
+- 호출방식: Post
+- 응답결과: 사용자 메일/암호를 체크하고 JWT 사용자 인증토큰값을 프론트엔드로 반환한다.
+*/
+router.post('/login',async(req,res)=>{
+
+    let apiResult = {
+        code:400, 
+        data:null, 
+        msg:""
+    };
+
+    try{
+
+        //Step1: 프론트엔드에서 전달해주는 로그인 사용자의 메일주소/암호를 추출합니다.
+        const email = req.body.email;
+        const password = req.body.password;
+
+        //Step2: 사용자 메일주소 존재여부를 체크합니다.
+        const member = await db.Member.findOne({
+            where:{email:email}
+        });
+
+        if(member){
+            //동일 메일주소가 존재하는 경우 
+            //Step3: 사용자 암호값 일치여부를 체크합니다.
+            if(encrypt.compare(password,member.member_password)){
+                //암호가 일치하는경우
+                //Step4: 사용자 메일주소/암호가 일치하는 경우 현재 로그인 사용자의 주요정보를 JSON데이터로 생성합니다.
+
+                //Step5: 인증된 사용자 json데이터를 JWT토큰내에 담아 JWT 토큰문자열을 생성합니다.
+
+                //Step6: JWT토큰 문자열을 프론트엔드로 반환합니다
+
+            }else{
+                //암호가 틀린경우 
+                apiResult.code = 400;
+                apiResult.data = null;
+                apiResult.msg = "InCorrectPasword";
+            }
+
+
+        }else{
+            //메일주소가 존재하지 않은경우 프론트엔드로 결과값 바로 반환
+            apiResult.code = 400;
+            apiResult.data = null;
+            apiResult.msg = "NotExistEmail";
+        }
+
+
+
+    }catch(err){
+
+    }
+
+    res.json(apiResult);
+
+});
+
 
 
 module.exports = router;

@@ -54,31 +54,33 @@
 				</div>
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
 					<div class="login-wrapper">
-						<form action="index.html">
+
+						<!-- 회원가입 입력폼영역 -->
+						<form id="entryForm">
 							<div class="login-screen">
 								<div class="login-body">
 									<a href="index.html" class="login-logo">
 										<img src="img/logo.svg" alt="Quick Chat">
 									</a>
-									<h6>Welcome to Quick Chat App,<br>Create your account.</h6>
+									<h6>채팅앱에 오신것을 환영합니다.<br>신규 계정을 생성하세요.</h6>
 									<div class="field-wrapper">
-										<input type="email" autofocus>
-										<div class="field-placeholder">Email ID</div>
+										<input type="email" id="email" autofocus>
+										<div class="field-placeholder">메일주소</div>
 									</div>
 									<div class="field-wrapper">
-										<input type="password">
-										<div class="field-placeholder">Password</div>
+										<input type="password" id="password">
+										<div class="field-placeholder">암호</div>
 									</div>
 									<div class="field-wrapper mb-3">
-										<input type="password">
-										<div class="field-placeholder">Confirm Password</div>
+										<input type="password" id="password-confirm">
+										<div class="field-placeholder">암호확인</div>
 									</div>
 									<div class="field-wrapper mb-3">
-										<input type="text">
+										<input type="text" id="name">
 										<div class="field-placeholder">닉네임</div>
 									</div>
 									<div class="actions">
-										<button type="submit" class="btn btn-primary ml-auto">Sign Up</button>
+										<button type="submit" class="btn btn-primary ml-auto">회원가입</button>
 									</div>
 								</div>
 								<div class="login-footer">
@@ -86,6 +88,7 @@
 								</div>
 							</div>
 						</form>
+
 					</div>
 				</div>
 			</div>
@@ -95,6 +98,76 @@
 		<!-- *************
 			************ Login container end *************
 		************* -->
+
+		<!-- JQuery 라이브러리 참조하기  -->
+		<script src="js/jquery.min.js"></script>
+
+		<script>
+
+			//entryForm에서 onSubmit이벤트가 발생하면 처리할 업무로직 구현
+			$("#entryForm").submit(function(e){
+
+				//onSubmit이벤트 발생을 취소해서 화면 껌벅거림을 사전에 방지한다.
+				e.preventDefault();
+
+				//Step1: 사용자 입력값의 유효성 검증하기
+				if($("#email").val() == ""){
+					alert("이메일주소를 입력해주세요.");
+					$("#email").focus();
+					return false;
+				}
+
+				if($("#password").val() == ""){
+					alert("암호를 입력해주세요.");
+					$("#password").focus();
+					return false;
+				}
+
+				if($("#password-confirm").val() == ""){
+					alert("암호 확인값을 입력해주세요.");
+					$("#password-confirm").focus();
+					return false;
+				}
+
+				if($("#password").val() != $("#password-confirm").val()){
+					alert("암호 확인값이 일치하지않습니다.");
+					$("#password-confirm").val("");
+					$("#password-confirm").focus();
+					return false;
+				}
+
+				if($("#name").val() == ""){
+					alert("닉네임을 입력해주세요.");
+					$("#name").focus();
+					return false;
+				}
+
+				//Step2: 사용자 입력값을 UI요소에 추출해서 JSON데이터를 생성한다.
+				//백엔드에 전달할 신규회원정보 정의하기 
+				var member = {
+					email:$("#email").val(),
+					password:$("#password").val(),
+					name:$("#name").val(),
+				};
+
+				//Step3: UI요소에서 추출한 JSON데이터를 백엔드 RESTFul API에 전달해서 회원가입처리합니다.
+				//Jquery의 AJAX를 이용해 post방식으로 백엔드 API주소에 데이터를 전달한다.
+				$.post('http://localhost:5000/api/member/entry',member).done(function(result){
+					//백엔드에서의 처리결과값 확인하기 
+					console.log("백엔드에서의 처리결과값 확인하기:",result);
+
+					if(result.code == 200){
+						location.href="./login.html";
+					}else{
+						alert("회원가입에 실패했습니다.\n 관리자에게 문의하세요.");
+					}
+				});
+
+				//Step4: 백엔드 데이터 처리결과에 따른 추가 정보를 사용자에게 전달한다.
+
+			});
+
+		</script>
 
 	</body>
 </html>
