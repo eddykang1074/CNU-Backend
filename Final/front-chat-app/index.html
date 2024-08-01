@@ -1815,6 +1815,35 @@
 
 		<script>
 
+			//웹페이지가 웹브라우저에 완전 로깅완료되는 시점에 백엔드 API를 호출해
+			//현재 로그인한 사용자의 프로필 정보를 조회해온다. 
+			$(document).ready(function(){
+
+				//웹브라우저에 저장된 토큰값을 추출한다.
+				var jwtToken = localStorage.getItem('chatMemberToken');
+
+				//index.html페이지는 반드시 로그인후 접속이 가능하며
+				//로그인을 했으면 토큰값이 웹브라우저에 스토로지에 저장되었을것이니까...
+				//체크해서 없으면 로그인 페이지로 안내하기 
+				if(jwtToken == undefined){
+					location.href = "./login.html";
+				}
+
+				//get방식으로 API를 호출함..
+				$.ajax({
+					type:'Get',
+					url:'http://localhost:5000/api/member/profile',
+					headers:{ Authorization:`Bearer ${jwtToken}`},
+					dataType:"json",
+					success:function(result){
+						console.log("프로필 정보 확인하기:",result);
+					},
+					error:function(err){
+						console.error("백엔드 API 호출에러 발생....");
+					}
+				});
+			});
+
 			//현재 URL에서(/front/modify.html?id=1) 쿼리스트링 키명으로 값을 추출하는 클라이언트 자바스크립트 함수 
 			//정규식 문법을 이용한 키값추출하기 
 			function getQueryString(keyName){
