@@ -7,6 +7,9 @@ var router = express.Router();
 //사용자 암호 단방향 암호화 적용을 위해 encryptjs 참조하기
 var encrypt = require('bcryptjs');
 
+//JWT 토큰 생성을 위한 jsonwebtoken 패키지 참조하기 
+const jwt = require('jsonwebtoken');
+
 //ORM db객체 참조하기 
 var db = require('../models/index');
 
@@ -104,13 +107,27 @@ router.post('/login',async(req,res)=>{
         if(member){
             //동일 메일주소가 존재하는 경우 
             //Step3: 사용자 암호값 일치여부를 체크합니다.
-            if(encrypt.compare(password,member.member_password)){
+            const compareResult = await encrypt.compare(password,member.member_password);
+            
+            if(compareResult){
                 //암호가 일치하는경우
+                
                 //Step4: 사용자 메일주소/암호가 일치하는 경우 현재 로그인 사용자의 주요정보를 JSON데이터로 생성합니다.
+                const tokenJsonData = {
+                    member_id:member.member_id,
+                    email:member.email,
+                    name:member.name,
+                    profile_img_path:member.profile_img_path
+                };
 
                 //Step5: 인증된 사용자 json데이터를 JWT토큰내에 담아 JWT 토큰문자열을 생성합니다.
+                //jwt.sing('토큰에 저장할 json데이터',토큰화할때 사용하는 인증키값,옵션값(토큰유효기간설정,발급자))
+                const token = await jwt.sign(tokenJsonData,process.env.JWT_AUTH_KEY,{expiresIn:'24h',issuer:"CBNU"});
 
                 //Step6: JWT토큰 문자열을 프론트엔드로 반환합니다
+                apiResult.code = 200;
+                apiResult.data = token;
+                apiResult.msg = "Ok";
 
             }else{
                 //암호가 틀린경우 

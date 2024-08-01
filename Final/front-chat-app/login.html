@@ -54,24 +54,26 @@
 				</div>
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
 					<div class="login-wrapper">
-						<form action="index.html">
+
+						<!-- 로그인 폼 영역 -->
+						<form id="loginForm">
 							<div class="login-screen">
 								<div class="login-body">
 									<a href="index.html" class="login-logo">
 										<img src="img/logo.svg" alt="Quick Chat">
 									</a>
-									<h6>Welcome back,<br>Please login to your account.</h6>
+									<h6>환영합니다.<br>로그인을 진행해주세요.</h6>
 									<div class="field-wrapper">
-										<input type="email" autofocus>
-										<div class="field-placeholder">Email ID</div>
+										<input type="email" id="email" autofocus>
+										<div class="field-placeholder">메일주소</div>
 									</div>
 									<div class="field-wrapper mb-3">
-										<input type="password">
-										<div class="field-placeholder">Password</div>
+										<input type="password" id="password">
+										<div class="field-placeholder">암호</div>
 									</div>
 									<div class="actions">
-										<a href="forgot-password.html">Forgot password?</a>
-										<button type="submit" class="btn btn-primary">Login</button>
+										<a href="forgot-password.html">암호를 잊어버렸나요?</a>
+										<button type="submit" class="btn btn-primary">로그인</button>
 									</div>
 								</div>
 								<div class="login-footer">
@@ -79,6 +81,8 @@
 								</div>
 							</div>
 						</form>
+
+
 					</div>
 				</div>
 			</div>
@@ -88,6 +92,42 @@
 		<!-- *************
 			************ Login container end *************
 		************* -->
+
+
+		<!-- JQuery 라이브러리 참조하기  -->
+		<script src="js/jquery.min.js"></script>
+
+
+		<script>
+
+			//로그인폼 유효성검사 진행하고 백엔드 로그인 API호출하기 
+			$("#loginForm").submit(function(e){
+
+				//form submit이벤트 실행을 취소한다.(화면 재로딩방지기능)
+				e.preventDefault();
+
+				//Step1: 사용자 입력값의 유효성 검증하기
+				if($("#email").val() == ""){
+					alert("이메일주소를 입력해주세요.");
+					$("#email").focus();
+					return false;
+				}
+
+				if($("#password").val() == ""){
+					alert("암호를 입력해주세요.");
+					$("#password").focus();
+					return false;
+				}
+
+				
+
+			});
+
+
+		</script>
+
+
+
 
 	</body>
 </html>

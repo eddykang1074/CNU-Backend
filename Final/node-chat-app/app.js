@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//환경설정정보 구성하기
+require('dotenv').config();
+
 //시퀄라이즈 ORM 을이용해 DB서버와 연결작업 진행 
 var sequelize = require('./models/index.js').sequelize;
 
