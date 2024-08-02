@@ -1,93 +1,104 @@
-            <!--우측 상단 헤더 영역 -->
-            <div class="row wrapper border-bottom white-bg page-heading">
-                <div class="col-lg-10">
-                    <h2>게시글정보관리</h2>
-                    <ol class="breadcrumb">
-                        <li>
-                            <a href="/Home/Index">Home></a>
-                        </li>
-                        <li>
-                            <a>게시글정보관리></a>
-                        </li>
-                        <li class="active">
-                            <strong>조회</strong>
-                        </li>
-                    </ol>
-                </div>
-                <div class="col-lg-2">
+<!--우측 상단 헤더 영역 -->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>게시글정보관리</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home/Index">Home</a>>
+            </li>
+            <li>
+                <a>게시글정보관리</a>>
+            </li>
+            <li class="active">
+                <strong>게시글목록조회</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
 
+    </div>
+</div>
+
+<!--우측 콘텐츠 영역 -->
+<div class="wrapper wrapper-content">
+
+    <div class="ibox-content m-b-sm border-bottom">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="OrderNo">글제목</label>
+                    <input type="text" id="title" class="form-control">
                 </div>
             </div>
-
-            <!--우측 콘텐츠 영역 -->
-            <div class="wrapper wrapper-content">
-
-                <div class="ibox-content m-b-sm border-bottom">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="OrderNo">관리자명</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="OrderName">아이디</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="MobileNo">사용여부</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-primary">조회</button>
-                        <a href="/article/create" class="btn btn-info">신규</a>
-                    </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="OrderName">아이피주소</label>
+                    <input type="text" id="ipaddress" class="form-control">
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-content">
-                                <div class="table-responsive">
-
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th width="10%">아이디</th>
-                                                <th width="10%">성명</th>
-                                                <th width="20%">메일주소</th>
-                                                <th width="20%">소속회사</th>
-                                                <th width="10%">부서</th>
-                                                <th width="10%">사용여부</th>
-                                                <th width="20%">등록일</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="hoverTblBody">
-
-                                            <tr>
-                                                <td><a href="/article/modify/1">code.AdminID</a></td>
-                                                <td>code.AdminName</a></td>
-                                                <td>code.AdminEmail</td>
-                                                <td>code.Company</td>
-                                                <td>code.CompanyPosition</td>
-                                                <td>code.UseYN</td>
-                                                <td>Date</td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
             </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="MobileNo">게시여부</label>
+                    <select id="display" name="name" class="form-control">
+                        <option value=9 selected>전체</option>
+                        <option value=1>게시함</option>
+                        <option value=2>게시안함</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="button" id="btnSearch" class="btn btn-primary">조회</button>
+            <a href="/article/create" class="btn btn-info">신규게시글</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="table-responsive">
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="10%">게시글번호</th>
+                                    <th width="50%">제목</th>
+                                    <th width="5%">아이피주소</th>
+                                    <th width="5%">조회수</th>
+                                    <th width="10%">게시여부</th>
+                                    <th width="10%">등록자번호</th>
+                                    <th width="10%">등록일시</th>
+                                </tr>
+                            </thead>
+                            <tbody class="hoverTblBody" id="list">
+
+                            <% for(var i =0;i<articles.length;i++){ %>
+
+                                <tr>
+                                        <td><%=articles[i].article_id%></td>
+                                        <td><a href="/article/modify/<%=articles[i].article_id%>"><%=articles[i].title%></a></td>
+                                        <td><%=articles[i].ip_address%></td>
+                                        <td><%=articles[i].view_count%></td>
+                                        <td><%=articles[i].is_display_code%></td>
+                                        <td><%=articles[i].reg_member_id%></td>
+                                        <td><%=articles[i].reg_date%></td>
+                                </tr>
+
+                            <% } %>
+                               
+
+               
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
