@@ -26,8 +26,12 @@ router.get('/chat',async(req,res)=>{
 -응답결과: 단순 그룹 채팅 웹페이지 뷰 반환
 */
 router.get('/groupchat',async(req,res)=>{
+
   res.render('groupchat.ejs');
 });
+
+
+
 
 
 
