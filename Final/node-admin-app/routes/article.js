@@ -176,8 +176,11 @@ router.get('/modify/:id',async(req,res)=>{
     //DB서버로 전송되어 실행되고 그결과를 백엔드에서 반환받는다. 
     const article = await db.Article.findOne({where:{article_id:articleIdx}});
 
+    //해당 게시글 첨부파일 정보조회 
+    const articleFile = await db.ArticleFile.findOne({where:{article_id:articleIdx}});
+
     //db에서 해당 게시글 번호와 일치하는 단일게시글 정보조회 
-    res.render('article/modify.ejs',{article});
+    res.render('article/modify.ejs',{article,articleFile});
 });
 
 

@@ -60,6 +60,19 @@
                                     </select>
                                 </div>
                             </div>
+                            
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">첨부파일</label>
+                                    <input type="file" id="file" name="file" class="form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <% if(articleFile != null){ %>
+                                    <a href="<%=articleFile.file_path%>" target="_blank"><%=articleFile.file_name%></a>
+                                <% } %>
+                            </div>
                         </div>
 
                         <div class="text-center">
