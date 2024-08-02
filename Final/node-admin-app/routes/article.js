@@ -8,6 +8,23 @@ var router = express.Router();
 //DB프로그래밍을 위한 ORM DB객체 참조하기
 var db = require('../models/index');
 
+//파일업로드를 위한 multer객체 참조하기
+var multer = require('multer');
+
+
+//파일저장위치 지정
+var storage  = multer.diskStorage({ 
+    destination(req, file, cb) {
+      cb(null, 'public/upload/');
+    },
+    filename(req, file, cb) {
+      cb(null, `${Date.now()}__${file.originalname}`);
+    },
+});
+
+//일반 업로드처리 객체 생성
+var upload = multer({ storage: storage });
+
 
 
 //게시글 전체목록조회 웹페이지 요청과 응답처리 라우팅메소드
@@ -30,12 +47,18 @@ router.get('/create',async(req,res)=>{
 
 //신규 게시글 입력정보 등록처리 요청과 응답처리 라우팅메소드
 //호출주소: http://localhost:3000/article/create
-router.post('/create',async(req,res)=>{
+router.post('/create',upload.single('file'),async(req,res)=>{
 
     //Step1: 신규 게시글 등록폼에서 사용자가 입력/선택한 값을 추출하자.
     const title = req.body.title;
     const contents = req.body.contents;
     const display_code = req.body.display;
+
+    //첨부파일이 있는겨우 파일정보 추출하기
+    //폼에서 file태그에 파일을 첨부하면 req.file이라는 속성으로
+    //서버에 업로드된 파일정보를 추출할수 있다.
+    const uploadFile = req.file;
+
 
     //Step2: article 테이블에 등록할 json 데이터 생성하기
     //주의/중요: 반드시 json 데이터 속성명은 article.js모델의 속성명과 일치해야한다.
@@ -56,6 +79,33 @@ router.post('/create',async(req,res)=>{
     //DB서버에 전송되어 DB서버에서 실행되고 실제 저장된 단일게시글 DATA를 DB서버에서 반환한다.
     const registedArticle = await db.Article.create(article);
     console.log("실제 DB article 테이블에 저장된 데이터확인:",registedArticle);
+
+
+    //Step4: 신규 등록된 게시글의 고유번호를  기반으로 첨부파일정보를 등록처리한다.
+    //업로드한 파일이 있는경우만 파일정보를 등록처리한다.
+    if(uploadFile){
+
+        //실제 서버에 업로드된 파일경로 
+        const filePath = `/upload/${uploadFile.filename}`;
+        const fileName = uploadFile.filename;//서버에 업로드된 파일명(32243143422_a.png)
+        const originalFileName = uploadFile.originalname;//사용자가 업로드한 파일명(a.png)
+        const fileSize = uploadFile.size;//파일크기
+        const mimeType = uploadFile.mimetype;//파일의 MIME타입
+
+        //파일정보를 DB에 저장하기
+        const file = {
+            article_id:registedArticle.article_id,
+            file_name:fileName,
+            file_size:fileSize,
+            file_path:filePath,
+            file_type:mimeType,
+            reg_date:Date.now(),
+            reg_member_id:1
+        };
+
+        //file첨부데이터를 article_file테이블에 저장하기 
+        await db.ArticleFile.create(file);
+    }
 
 
 

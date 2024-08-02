@@ -32,7 +32,7 @@
             <!--우측 콘텐츠 영역 -->
             <div class="wrapper wrapper-content">
 
-                <form id="createForm" action="/article/create" method="post">
+                <form id="createForm" action="/article/create" method="post" enctype="multipart/form-data">
                     <div class="ibox-content m-b-sm border-bottom">
                         <!-- 글제목영역 -->
                         <div class="row">
@@ -64,6 +64,13 @@
                                         <option value="1">게시</option>
                                         <option value="0">게시안함</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">첨부파일</label>
+                                    <input type="file" id="file" name="file" class="form-control"/>
                                 </div>
                             </div>
                         </div>
