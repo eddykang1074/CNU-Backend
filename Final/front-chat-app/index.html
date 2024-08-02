@@ -1263,18 +1263,17 @@
 
 												<div class="account-settings-body">
 
+													<!-- 현재 로그인 사용자 프로필 이미지 확인영역 -->
 													<div class="upload-profile">
-
 														<div class="upload-profile-image">
-															<img src="img/user2.png" alt="Profile Image">
+															<img src="img/user2.png" id="profileImage" alt="Profile Image">
 														</div>
 														<div class="field-wrapper">
 															<div class="custom-file">
-																<input type="file" class="custom-file-input" id="uploadProfile">
+																<input type="file"  class="custom-file-input" id="uploadProfile" name="file">
 																<label class="custom-file-label" for="uploadProfile">Choose file</label>
 															</div>
 														</div>
-
 													</div>
 
 													<div class="field-wrapper">
@@ -1609,7 +1608,7 @@
 									</div>
 									<div class="field-wrapper">
 										<div class="custom-file">
-											<input type="file" class="custom-file-input" id="uploadProfile">
+											<input type="file" class="custom-file-input">
 											<label class="custom-file-label" for="uploadProfile">Group image</label>
 										</div>
 									</div>
@@ -1688,7 +1687,7 @@
 									</div>
 									<div class="field-wrapper">
 										<div class="custom-file">
-											<input type="file" class="custom-file-input" id="uploadProfile">
+											<input type="file" class="custom-file-input">
 											<label class="custom-file-label" for="uploadProfile">Group image</label>
 										</div>
 									</div>
@@ -1925,9 +1924,36 @@
 			
 			});
 	
-	
-	
-	
+			//파일 첨부 태그의 change이벤트가 발생하면 파일을 서버로 전송한다.
+			$("#uploadProfile").change(function(e){
+
+				//폼태그를 프로그래밍적으로 구현하는 FormData객체를 생성한다.
+				var data = new FormData();
+				data.append('file',$("input[name=file]")[0].files[0]);
+
+				console.log("프론트엔드에서 전송하는 파일데이터:",data);
+
+				e.preventDefault();
+
+				//백엔드 RESTAPI주소로 파일 데이터를 전송하고 반환받습니다.
+				$.ajax({
+					data:data,
+					type:'POST',
+					url:'http://localhost:5000/api/member/profile/upload',
+					cache:false,
+					contentType:false,
+					processData:false,
+					success:function(result){
+						console.log("파일전송결과:",result);
+					},
+					error:function(err){
+						console.error("파일전송에러발생:",err);
+					}
+				});
+
+				return false;
+			});
+			
 		</script>
 	
 	
