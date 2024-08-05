@@ -1936,20 +1936,37 @@
 				e.preventDefault();
 
 				//백엔드 RESTAPI주소로 파일 데이터를 전송하고 반환받습니다.
+				// $.ajax({
+				// 	data:data,
+				// 	type:'POST',
+				// 	url:'http://localhost:5000/api/member/profile/upload',
+				// 	cache:false,
+				// 	contentType:false,
+				// 	processData:false,
+				// 	success:function(result){
+				// 		console.log("파일전송결과:",result);
+				// 		return false;
+				// 	},
+				// 	error:function(err){
+				// 		console.error("파일전송에러발생:",err);
+				// 		return false;
+				// 	}
+				// });
+
+
 				$.ajax({
-					data:data,
-					type:'POST',
-					url:'http://localhost:5000/api/member/profile/upload',
-					cache:false,
-					contentType:false,
-					processData:false,
-					success:function(result){
-						console.log("파일전송결과:",result);
-					},
-					error:function(err){
-						console.error("파일전송에러발생:",err);
-					}
-				});
+                    data: data,
+                    type: "POST",
+                    url: 'http://localhost:5000/api/member/profile/upload',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+
+
 
 				return false;
 			});
