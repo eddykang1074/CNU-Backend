@@ -60,7 +60,8 @@ router.post("/create", async (req, res) => {
       article_type_code: 0,
       contents: contents,
       view_count: 0,
-      ip_address: "111.111.111.111",
+      ip_address:
+        req.headers["x-forwarded-for"] || req.connection.remoteAddress, //로컬개발환경인 경우 ::1 이렇게 ip주소가 추출됩니다.
       is_display_code: display,
       reg_date: Date.now(),
       reg_member_id: 1, //추후 토큰에서 사용자 정보추출하기
