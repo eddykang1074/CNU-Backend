@@ -11,7 +11,7 @@ var db = require("../models/index");
 -전체 게시글 목록 조회 요청 및 응답처리 API 라우팅 메소드
 -호출주소: http://localhost:5000/api/article/list
 -요청방식: GET
--응답결과: 전체 게시글 목록 데이터
+-응답결과: 전체 게시글 목록 데이터33
 */
 router.get("/list", async (req, res) => {
   let apiResult = {
