@@ -1,6 +1,9 @@
 var express = require("express");
 var router = express.Router();
 
+//db객체 참조하기
+var db = require("../models/index");
+
 //OpenAI API 호출을 위한 axios 패키지 참조하기
 const axios = require("axios");
 
@@ -47,12 +50,64 @@ router.post("/dalle", async (req, res) => {
     const imageURL = response.data[0].url;
     console.log("dall 이미지 생성 URL경로 : ", imageURL);
 
-    //Step4: 최종 생성된 이미지 데이터 추출하기
-    //Step5: DB 게시글 테이블에 사용자 이미지 생성요청 정보 등록처리하기
-    //Step6: 최종 생성된 이미지 정보를 프론트엔드로 반환하기
+    //이미지 경로를 이용해 물리적 이미지 파일 생성하기
+    const imgFileName = `sample-${Date.now()}.png`;
+    const imgFilePath = `./public/ai/${imgFileName}`;
 
+    axios({
+      url: imageURL,
+      responseType: "stream",
+    })
+      .then((response) => {
+        response.data
+          .pipe(fs.createWriteStream(imgFilePath))
+          .on("finish", () => {
+            console.log("Image saved successfully.");
+          })
+          .on("error", (err) => {
+            console.error("Error saving image:", err);
+          });
+      })
+      .catch((err) => {
+        console.error("Error downloading image:", err);
+      });
+
+    //Step4: 최종 생성된 이미지 데이터 추출하기
+    const article = {
+      board_type_code: 3,
+      title: prompt,
+      article_type_code: 0,
+      view_count: 0,
+      ip_address:
+        req.headers["x-forwarded-for"] || req.connection.remoteAddress,
+      is_display_code: 1,
+      reg_date: Date.now(),
+      reg_member_id: 1, //추후 jwt토큰에서 사용자 고유번호 추출하여 처리
+    };
+
+    //신규 등록된 게시글 정보를 반환받는다.
+    const registedArticle = await db.Article.create(article);
+
+    //생성된 이미지 정보 만들고 저장하기
+    //도메인주소를 포함한 백엔드 이미지 전체 url경로
+    const imageFullPath = `${process.env.DALLE_IMG_DOMAIN}/ai/${imgFileName}`;
+
+    const articleFile = {
+      article_id: registedArticle.article_id,
+      file_name: imgFileName,
+      file_size: 0,
+      file_path: imageFullPath,
+      file_type: "PNG",
+      reg_date: Date.now(),
+      reg_member_id: 1,
+    };
+
+    //Step5: DB 게시글 테이블에 사용자 이미지 생성요청 정보 등록처리하기
+    await db.ArticleFile.create(articleFile);
+
+    //Step6: 최종 생성된 이미지 정보를 프론트엔드로 반환하기
     apiResult.code = 200;
-    apiResult.data = imageURL;
+    apiResult.data = imageFullPath;
     apiResult.msg = "Ok";
   } catch (err) {
     apiResult.code = 500;
